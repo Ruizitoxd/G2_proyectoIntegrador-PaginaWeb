@@ -1,0 +1,27 @@
+.nav {
+    padding: 0.5em;
+}
+
+.nav-link {
+    color: black !important;
+    padding: 1em !important;
+}
+
+.nav-link:hover {
+    background: #ececec !important;
+}
+
+.active {
+    background: #ececec !important;
+    border-width: 5px !important;
+    border-style: solid none none none !important;
+    border-image: linear-gradient(to right, #0f4792, #0097b2, #57cdd9, #0097b2)
+        1 !important;
+}
+
+.montserrat-nav-item {
+    font-family: 'Montserrat', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}

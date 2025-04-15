@@ -1,0 +1,21 @@
+.navbar {
+    background: linear-gradient(to right, #0f4792, #0097b2, #57cdd9, #0097b2);
+}
+
+.navbar a {
+    color: white !important;
+}
+
+.navbar img {
+    width: 80px;
+    height: auto;
+    margin-right: 3%;
+}
+
+.montserrat-title-font {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em !important;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+}
