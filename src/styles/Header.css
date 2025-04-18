@@ -2,7 +2,7 @@
     background: linear-gradient(to right, #0f4792, #0097b2, #57cdd9, #0097b2);
 }
 
-.navbar a {
+.navbar-brand {
     color: white !important;
 }
 
@@ -18,4 +18,10 @@
     font-optical-sizing: auto;
     font-weight: 900;
     font-style: normal;
+}
+
+.navbar-user-container {
+    display: flex;
+    flex-direction: column;
+    color: white !important;
 }
