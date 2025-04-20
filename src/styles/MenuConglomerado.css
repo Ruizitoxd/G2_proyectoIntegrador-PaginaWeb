@@ -1,0 +1,96 @@
+
+
+.card-row.card-row-full {
+    display: block;
+    width: 100%;
+    margin-top: 2px;
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 2rem;
+    
+}
+.card-row-full {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+
+}
+
+
+.card-enla{
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 800px;
+    text-align: center;  
+}
+
+.card-info{
+    background-color: rgb(66, 125, 168);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+}
+
+.card-info .card-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #ffffff;
+}
+
+.card-info .card-body .card-text {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+
+}
+
+.card-info .card-text i {
+    margin-right: 8px;
+    color: #6c757d;  /* color para los íconos */
+}
+
+.card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 500px;
+    text-align: center;
+}
+
+img{
+    width: 200px;
+}
+
+/* Colores personalizados */
+.card-arbol {
+    background-color: #42992c; /* Azul */
+    color: #ffffff;
+}
+
+.card-suelo {
+    background-color: #99532c; /* Rojo */
+    color: #ffffff;
+}
+
+.card-muestras {
+    background-color: #97992c; /* Verde */
+    color: #ffffff;
+}
+
+.card-container{
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 2rem;
+}

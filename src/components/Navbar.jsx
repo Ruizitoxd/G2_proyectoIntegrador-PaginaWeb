@@ -8,8 +8,8 @@ export default function Navbar() {
 
     return (
         <div>
-            <ul class="nav nav-pills nav-justified">
-                <li class="nav-item montserrat-nav-item mx-2">
+            <ul className="nav nav-pills nav-justified">
+                <li className="nav-item montserrat-nav-item mx-2">
                     <Link
                         to="/"
                         className={classNames('nav-link', {
@@ -19,7 +19,7 @@ export default function Navbar() {
                         Inicio
                     </Link>
                 </li>
-                <li class="nav-item montserrat-nav-item mx-2">
+                <li className="nav-item montserrat-nav-item mx-2">
                     <Link
                         to="/MapaConglomerados"
                         className={classNames('nav-link', {
@@ -29,23 +29,38 @@ export default function Navbar() {
                         Mapa de conglomerados
                     </Link>
                 </li>
-                <li class="nav-item montserrat-nav-item mx-2">
-                    <a class="nav-link" href="#">
-                        Muestras arboreas
-                    </a>
+                <li className="nav-item montserrat-nav-item mx-2">
+                    <Link
+                        to="/TablaArboles"
+                        className={classNames('nav-link', {
+                            active: location.pathname === '/MapaConglomerados',
+                        })}
+                    >
+                        Muestras arbóreas
+                    </Link>
                 </li>
-                <li class="nav-item montserrat-nav-item mx-2">
-                    <a class="nav-link" href="#">
+                <li className="nav-item montserrat-nav-item mx-2">
+                <Link
+                        to="/TablaSuelos"
+                        className={classNames('nav-link', {
+                            active: location.pathname === '/MapaConglomerados',
+                        })}
+                    >
                         Muestras de Suelos
-                    </a>
+                    </Link>
                 </li>
-                <li class="nav-item montserrat-nav-item mx-2">
-                    <a class="nav-link" href="#">
-                        Colección Bótanica
-                    </a>
+                <li className="nav-item montserrat-nav-item mx-2">
+                <Link
+                        to="/TablaColeccionBotanica"
+                        className={classNames('nav-link', {
+                            active: location.pathname === '/MapaConglomerados',
+                        })}
+                    >
+                        Colección Botánica
+                    </Link>
                 </li>
-                <li class="nav-item montserrat-nav-item mx-2">
-                    <a class="nav-link" href="#">
+                <li className="nav-item montserrat-nav-item mx-2">
+                    <a className="nav-link" href="#">
                         Manual de Consulta
                     </a>
                 </li>

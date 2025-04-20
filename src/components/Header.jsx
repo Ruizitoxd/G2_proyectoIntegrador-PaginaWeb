@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import '../styles/Header.css';
 
-export default function header() {
+export default function Header() {
     return (
         <header className="navbar">
             <div className="container-fluid">
