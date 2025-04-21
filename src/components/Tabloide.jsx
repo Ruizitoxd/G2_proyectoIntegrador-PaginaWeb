@@ -4,7 +4,7 @@ import '../styles/Tabla.css'; // importa tus estilos
 const customStyles = {
     headRow: {
         style: {
-            backgroundColor: '#0097b2', // Fondo del encabezado
+            backgroundColor: '#0097b3', // Fondo del encabezado
             color: 'white', // Color del texto
             borderRadius: '12px',
         },
