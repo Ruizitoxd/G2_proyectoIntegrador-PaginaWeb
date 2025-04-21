@@ -1,0 +1,126 @@
+/* Estilo general del layout */
+.contenedor-login {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.lado-izquierdo {
+    width: 50%;
+    background: linear-gradient(to bottom, #4a90e2, #003b80);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.lado-derecho {
+    width: 50%;
+}
+
+.imagen-fondo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilos del formulario */
+.formulario-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.estilo-profile {
+    height: 120px;
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.logo-nombre-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.Text-IDEAM {
+    font-size: 44px;
+    margin: 0;
+    color: white;
+}
+
+.text-ideam-abajo {
+    color: white;
+}
+
+.text-bienvenida {
+    font-size: 25px;
+    color: white;
+    margin-top: 20px;
+}
+
+.text-correo-contraseña {
+    color: white;
+    font-size: 19px;
+}
+
+.cajatexto {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.cajatexto:focus {
+    outline: none;
+}
+
+.btnform {
+    background-color: #003b80;
+    color: white;
+    border-radius: 12px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.texto {
+    font-size: 20px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 5px;
+}
+
+.btnswitch {
+    border-radius: 0px;
+    background-color: transparent;
+    padding: 8px;
+    border: none;
+    font-size: 20px;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Responsive: en móviles que se oculte la imagen */
+@media screen and (max-width: 768px) {
+    .contenedor-login {
+        flex-direction: column;
+    }
+
+    .lado-izquierdo {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .lado-derecho {
+        display: none;
+    }
+}

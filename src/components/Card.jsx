@@ -1,6 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faGlobe, faTag, faMap } from '@fortawesome/free-solid-svg-icons'; // Mover esta importación al principio
-import React from 'react'; 
+import {
+    faMapMarkerAlt,
+    faGlobe,
+    faTag,
+    faMap,
+} from '@fortawesome/free-solid-svg-icons'; // Mover esta importación al principio
+import React from 'react';
 
 import '../styles/MenuConglomerado.css';
 
@@ -33,13 +38,11 @@ export function CardBody2(props) {
             </div>
         </a>
     );
-    
 }
 
 /**
  * @param {{ Id: string, Latitud?: string, Longitud?: string, className?: string, Region: string, PostEstrato: string }} props1
  */
-
 
 export function CardBody3(props1) {
     const { Id, Latitud, Longitud, className, Region, PostEstrato } = props1;
@@ -48,11 +51,21 @@ export function CardBody3(props1) {
         <div className={`card-enla ${className || ''}`}>
             <div className="card-header">Conglomerado</div>
             <div className="card-body">
-            <p className="card-text"><FontAwesomeIcon icon={faTag} /> Id: {Id}</p>
-                <p className="card-text"><FontAwesomeIcon icon={faMapMarkerAlt} /> Latitud: {Latitud}</p>
-                <p className="card-text"><FontAwesomeIcon icon={faGlobe} /> Longitud: {Longitud}</p>
-                <p className="card-text"><FontAwesomeIcon icon={faMap} /> Región: {Region}</p>
-                <p className="card-text"><FontAwesomeIcon icon={faTag} /> PostEstrato: {PostEstrato}</p>
+                <p className="card-text">
+                    <FontAwesomeIcon icon={faTag} /> Id: {Id}
+                </p>
+                <p className="card-text">
+                    <FontAwesomeIcon icon={faMapMarkerAlt} /> Latitud: {Latitud}
+                </p>
+                <p className="card-text">
+                    <FontAwesomeIcon icon={faGlobe} /> Longitud: {Longitud}
+                </p>
+                <p className="card-text">
+                    <FontAwesomeIcon icon={faMap} /> Región: {Region}
+                </p>
+                <p className="card-text">
+                    <FontAwesomeIcon icon={faTag} /> PostEstrato: {PostEstrato}
+                </p>
             </div>
         </div>
     );

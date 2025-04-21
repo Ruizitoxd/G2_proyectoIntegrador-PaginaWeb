@@ -1,10 +1,9 @@
 import React from 'react';
-import Table from '../components/tabla'; // Suponiendo que tienes el archivo Table.js
+import Tabla from '../components/Tabla';
 import { useFetch } from '../data/useFetch';
-import { CardBody2} from '../components/Card';
+import { CardBody2 } from '../components/Card';
 import Arbol from '../Images/leaf.png';
 import '../styles/Tabla.css';
-
 
 const columns = [
     { name: 'Id', selector: (row) => row.Id, sortable: true },
@@ -27,8 +26,6 @@ const columns = [
     { name: 'Foto', selector: (row) => row.Foto, sortable: true },
 ];
 
-
-
 function App() {
     const { data, loading } = useFetch(
         'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/ColeccionBotanica/obtener-todos-ColeccionBotanico'
@@ -46,18 +43,17 @@ function App() {
         Foto: item.foto,
     }));
     return (
-
         <>
-        <CardBody2
-          title="Botánica"
-          text="Número de Colección Botánica"
-          className="card-tres"
-          img={Arbol}
-        />
+            <CardBody2
+                title="Botánica"
+                text="Número de Colección Botánica"
+                className="card-tres"
+                img={Arbol}
+            />
 
-        <div className="App">
-            <Table columns={columns} data={datosColeccionBotanica} />
-        </div>
+            <div className="App">
+                <Tabla columns={columns} data={datosColeccionBotanica} />
+            </div>
         </>
     );
 }

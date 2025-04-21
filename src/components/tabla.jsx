@@ -1,12 +1,12 @@
-import React from "react";
-import DataTable from "react-data-table-component";
-import "../styles/Tabla.css"; // importa tus estilos
+import React from 'react';
+import DataTable from 'react-data-table-component';
+import '../styles/Tabla.css'; // importa tus estilos
 const customStyles = {
     headRow: {
         style: {
             backgroundColor: '#0097b2', // Fondo del encabezado
-            color: 'white',             // Color del texto
-            borderRadius: '12px',  
+            color: 'white', // Color del texto
+            borderRadius: '12px',
         },
     },
     headCells: {
@@ -22,7 +22,7 @@ const customStyles = {
 /**
  * @param {{columns: Array, data: Array }} props
  */
-export default function Table({ columns, data }) {
+export default function Tabla({ columns, data }) {
     return (
         <div className="table-card">
             <div className="data-table-wrapper">

@@ -1,7 +1,7 @@
 import React from 'react';
-import Table from '../components/tabla';
+import Tabla from '../components/Tabla';
 import { useFetch } from '../data/useFetch';
-import { CardBody2} from '../components/Card';
+import { CardBody2 } from '../components/Card';
 import Arbol from '../Images/water-waves.png';
 import '../styles/Tabla.css';
 
@@ -34,23 +34,18 @@ function App() {
         Observaciones: item.observaciones,
     }));
 
-    
-
     return (
-
         <>
-        <CardBody2
-          title="Suelos"
-          text="Número de Suelos"
-          className="card-dos"
-          img={Arbol}
-        />
+            <CardBody2
+                title="Suelos"
+                text="Número de Suelos"
+                className="card-dos"
+                img={Arbol}
+            />
 
-        <div className="App">
-
-            <Table columns={columns} data={datosSuelos} />
-        </div>
-
+            <div className="App">
+                <Tabla columns={columns} data={datosSuelos} />
+            </div>
         </>
     );
 }
