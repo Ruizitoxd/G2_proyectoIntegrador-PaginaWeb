@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Imagen from '../Images/Fondo-login.png';
 import ImageProfile from '../Images/Logo-login.png';
 import '../styles/Login.css';
+import axios from 'axios';
 
 /* Importaciones de firebase */
 import appFirebase from '../credenciales';
@@ -24,18 +25,27 @@ const Login = () => {
         e.preventDefault();
         const correo = e.target.email.value;
         const contraseña = e.target.password.value;
+        const name = 'Juan Camilo Ruiz Osorio';
 
         if (registrando) {
             try {
-                await createUserWithEmailAndPassword(auth, correo, contraseña);
-            } catch (error) {
-                alert(error.message);
+                const res = await axios.post(
+                    'https://back-login-production.up.railway.app/api/register',
+                    {
+                        name,
+                        correo,
+                        contraseña,
+                    }
+                );
+                alert('Registro exitoso ✅');
+            } catch (err) {
+                alert('Error: ' + err.message);
             }
         } else {
             try {
                 await signInWithEmailAndPassword(auth, correo, contraseña);
             } catch (error) {
-                alert('El correo o contraseña son incorrectos');
+                alert(error.message);
             }
         }
     };
@@ -97,7 +107,7 @@ const Login = () => {
                     <h4 className="texto">
                         {registrando
                             ? 'Si ya tienes cuenta'
-                            : 'No tienes cuenta'}
+                            : '¿No tienes cuenta?'}
                         <button
                             className="btnswitch"
                             onClick={() => setRegistrando(!registrando)}

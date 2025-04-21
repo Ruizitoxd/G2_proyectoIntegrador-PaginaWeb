@@ -91,7 +91,7 @@ export default function Mapa() {
                         className="offcanvas-title"
                         id="offcanvasScrollingLabel"
                     >
-                        Filtrar conglomerados
+                        Filtrar por:
                     </h5>
                     <button
                         type="button"
@@ -102,7 +102,48 @@ export default function Mapa() {
                 </div>
                 <div className="offcanvas-body">
                     {/* Sección de filtros usables */}
-                    <div className="map-filter-section"></div>
+                    <div className="map-filter-section">
+                        {/* Filtro de región */}
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <label
+                                htmlFor="selectRegion"
+                                className="form-label fw-bold mb-0 me-2"
+                                style={{ minWidth: '100px' }}
+                            >
+                                Región:
+                            </label>
+                            <select
+                                id="selectRegion"
+                                className="form-select shadow-sm"
+                                style={{ maxWidth: '250px' }}
+                            >
+                                <option value="">Seleccionar región</option>
+                                <option value="">Amazonas</option>
+                            </select>
+                        </div>
+
+                        {/* Filtro de postestrato */}
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <label
+                                htmlFor="selectRegion"
+                                className="form-label fw-bold mb-0 me-2"
+                                style={{ minWidth: '100px' }}
+                            >
+                                Post Estrato:
+                            </label>
+                            <select
+                                id="selectRegion"
+                                className="form-select shadow-sm"
+                                style={{ maxWidth: '250px' }}
+                            >
+                                <option value="">Seleccionar región</option>
+                                <option value="">Bosque</option>
+                                <option value="">No Bosque</option>
+                            </select>
+                        </div>
+
+                        {/* Filtro de número de conglomerados */}
+                    </div>
 
                     {/* Lista de conglomerados activos en el mapa*/}
                     <div className="map-conglomerados-section"></div>
