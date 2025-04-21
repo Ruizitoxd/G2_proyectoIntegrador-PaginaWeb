@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Imagen from '../Images/Fondo-login.png';
 import ImageProfile from '../Images/Logo-login.png';
 import '../styles/Login.css';
@@ -15,6 +16,8 @@ import {
 const auth = getAuth(appFirebase);
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const [registrando, setRegistrando] = useState(false);
 
     const functAutenticacion = async (e) => {
@@ -41,7 +44,9 @@ const Login = () => {
 
     onAuthStateChanged(auth, (usuarioFirebase) => {
         if (usuarioFirebase) {
+            //Usuario validado
             setUsuario(usuarioFirebase);
+            navigate('/');
         } else {
             setUsuario(null);
         }
