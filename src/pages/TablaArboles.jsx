@@ -66,12 +66,34 @@ function App() {
 
     return (
         <>
-            <CardBody2
-                title="Árbol"
-                text="Número de Árboles"
-                className="card-uno"
-                img={Arbol}
-            />
+            <div className="card-containers">
+                <CardBody2
+                    title="Muestras de árboles"
+                    text="Número de Árboles"
+                    className="card-link card-uno"
+                    img={Arbol}
+                />
+
+                <label className="input-group select-uno">
+                    <span>Conglomerados</span>
+                    <select>
+                        <option value="">Todos</option>
+                    </select>
+                </label>
+
+                <label className="input-group select-uno">
+                    <span>Sub-Parcela</span>
+                    <select>
+                        <option value={'Todas'}>Todas</option>
+                        <option value={'1'}>1</option>
+                        <option value={'2'}>2</option>
+                        <option value={'3'}>3</option>
+                        <option value={'4'}>4</option>
+                        <option value={'5'}>5</option>
+                    </select>
+                </label>
+            </div>
+
             <div className="App">
                 <Tabla columns={columns} data={datosArboles} />
             </div>

@@ -1,0 +1,102 @@
+.card-containers {
+    display: flex;
+    gap: 10rem;
+    align-items: stretch; /* Estira todos al alto más grande */
+    justify-content: flex-start;
+    margin: 2rem 5%;
+    flex-wrap: nowrap; /* Por si lo ves en móvil */
+    overflow-x: auto;
+}
+
+.card-containers > * {
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    height: 90px;
+    box-sizing: border-box;
+}
+
+.card-link {
+    color: inherit;
+    padding: 1rem;
+    width: 22rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+img {
+    height: 70px;
+    margin-right: 5%;
+}
+
+/* Tarjetas de colores */
+.card-uno {
+    background-color: #42992c;
+    color: #ffffff;
+}
+
+.card-dos {
+    background-color: #99532c;
+    color: #ffffff;
+}
+
+.card-tres {
+    background-color: #97992c;
+    color: #ffffff;
+}
+
+/* Selects de colores */
+.select-uno span {
+    background-color: #42992c;
+    color: #ffffff;
+}
+
+.select-dos span {
+    background-color: #99532c;
+    color: #ffffff;
+}
+
+.select-tres span {
+    background-color: #97992c;
+    color: #ffffff;
+}
+
+/* Agrupación input + select */
+.input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    font-family: sans-serif;
+    width: 100px;
+    height: 40px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.input-group span {
+    padding: 8px 12px;
+    border-right: 1px solid #ccc;
+    font-weight: bold;
+    white-space: nowrap;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-group select {
+    border: none;
+    padding: 8px 12px;
+    outline: none;
+    font-size: 1em;
+    flex: 1;
+    height: 100%;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}

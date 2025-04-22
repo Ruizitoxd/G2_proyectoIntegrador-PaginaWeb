@@ -2,7 +2,7 @@ import React from 'react';
 import Tabla from '../components/Tabla';
 import { useFetch } from '../data/useFetch';
 import { CardBody2 } from '../components/Card';
-import Arbol from '../Images/water-waves.png';
+import Suelo from '../Images/water-waves.png';
 import '../styles/Tabla.css';
 
 const columns = [
@@ -36,12 +36,33 @@ function App() {
 
     return (
         <>
-            <CardBody2
-                title="Suelos"
-                text="Número de Suelos"
-                className="card-dos"
-                img={Arbol}
-            />
+            <div className="card-containers">
+                <CardBody2
+                    title="Muestras de suelos"
+                    text="Número de Suelos"
+                    className="card-link card-dos"
+                    img={Suelo}
+                />
+
+                <label className="input-group select-dos">
+                    <span>Conglomerados</span>
+                    <select>
+                        <option value="">Todos</option>
+                    </select>
+                </label>
+
+                <label className="input-group select-dos">
+                    <span>Sub-Parcela</span>
+                    <select>
+                        <option value={'Todas'}>Todas</option>
+                        <option value={'1'}>1</option>
+                        <option value={'2'}>2</option>
+                        <option value={'3'}>3</option>
+                        <option value={'4'}>4</option>
+                        <option value={'5'}>5</option>
+                    </select>
+                </label>
+            </div>
 
             <div className="App">
                 <Tabla columns={columns} data={datosSuelos} />

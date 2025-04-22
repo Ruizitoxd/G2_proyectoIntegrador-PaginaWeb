@@ -62,9 +62,9 @@ export default function Navbar() {
                 </li>
                 <li className="nav-item montserrat-nav-item mx-2">
                     <Link
-                        to="/"
+                        to="/ManualDeConsulta"
                         className={classNames('nav-link', {
-                            active: location.pathname === '/Manual',
+                            active: location.pathname === '/ManualDeConsulta',
                         })}
                     >
                         Manual de consulta
