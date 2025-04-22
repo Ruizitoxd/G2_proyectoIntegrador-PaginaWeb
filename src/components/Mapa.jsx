@@ -1,16 +1,10 @@
-import {
-    MapContainer,
-    TileLayer,
-    Circle,
-    Popup,
-    ZoomControl,
-} from 'react-leaflet';
+// src/components/Mapa.js
+import { MapContainer, TileLayer, Circle, Popup, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
-import { useFetch } from '../data/useFetch';
-import { useEffect, useMemo } from 'react';
+import { useConglomerados } from '../data/useConglomerados.js'; // Importa el hook
 import '../styles/Mapa.css';
 
 export default function Mapa() {
@@ -31,42 +25,12 @@ export default function Mapa() {
     };
 
     const [selectedStyle, setSelectedStyle] = useState('OpenStreetMap');
-    //
-    
-    const { data} = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/conglomerado/obtener-id-conglomerado'
-    );
 
+    // Usar el hook customizado para obtener los conglomerados
+    const conglomerados = useConglomerados();
 
-    const conglomerados = useMemo(() => {
-        if (!data || !Array.isArray(data)) return [];
-        return data.map((item) => ({
-            id: item.id,
-            latitud: parseFloat(item.latitud),
-            longitud: parseFloat(item.longitud),
-            observaciones: item.observaciones,
-            region: item.region,
-            posEstrato: item.posEstrato,
-        }));
-    }, [data]);
-
-    // Imprimir conglomerados una vez cargados
-    useEffect(() => {
-        if (conglomerados.length > 0) {
-            console.log('Lista de conglomerados:');
-            conglomerados.forEach((item, index) => {
-                console.log(`Conglomerado ${index + 1}:`, item);
-            });
-        }
-    }, [conglomerados]);
-
-
-
-
-    //
     return (
         <div className="map-container">
-            {/* Botón que abre el offcanvas de filtros */}
             <button
                 className="btn btn-primary"
                 type="button"
@@ -77,23 +41,18 @@ export default function Mapa() {
                 <FontAwesomeIcon icon={faSliders} size="2x" />
             </button>
 
-            {/* Sección del mapa principal */}
             <MapContainer
                 center={[7.111, -73.05]}
                 zoom={16}
                 style={{ height: '80vh', width: '100%' }}
                 zoomControl={false}
             >
-                {/* Establece el estilo del mapa */}
                 <TileLayer
                     url={tileStyles[selectedStyle].url}
                     attribution={tileStyles[selectedStyle].attribution}
                 />
-
-                {/* Establece la ubicación de los controles de zoom */}
                 <ZoomControl position="bottomright" />
 
-                {/* Ciclo que coloca los circulos del mapa según la información de los conglomerados */}
                 {conglomerados.map((item) => (
                     <Circle
                         key={item.id}
@@ -105,7 +64,7 @@ export default function Mapa() {
                             fillColor: "red",
                         }}
                     >
-                        <Popup>{item.nombre}</Popup>
+                        <Popup>{item.region}</Popup>
                     </Circle>
                 ))}
             </MapContainer>
@@ -120,10 +79,7 @@ export default function Mapa() {
                 aria-labelledby="offcanvasScrollingLabel"
             >
                 <div className="offcanvas-header">
-                    <h5
-                        className="offcanvas-title"
-                        id="offcanvasScrollingLabel"
-                    >
+                    <h5 className="offcanvas-title" id="offcanvasScrollingLabel">
                         Filtrar conglomerados
                     </h5>
                     <button
@@ -145,9 +101,7 @@ export default function Mapa() {
                         <div className="map-style-selector">
                             <div
                                 className="style-option"
-                                onClick={() =>
-                                    setSelectedStyle('OpenStreetMap')
-                                }
+                                onClick={() => setSelectedStyle('OpenStreetMap')}
                             >
                                 <img
                                     src={require('../Images/map_style_default.png')}
