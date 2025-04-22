@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Imagen from '../Images/Fondo-login.png';
 import ImageProfile from '../Images/Logo-login.png';
 import '../styles/Login.css';
-import axios from 'axios';
 
 /* Importaciones de firebase */
 import appFirebase from '../credenciales';
@@ -13,6 +12,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     onAuthStateChanged,
+    signOut,
 } from 'firebase/auth';
 const auth = getAuth(appFirebase);
 
@@ -20,51 +20,73 @@ const Login = () => {
     const navigate = useNavigate();
 
     const [registrando, setRegistrando] = useState(false);
+    const [mostrarContraseña, setMostrarContraseña] = useState(false);
+    const [usuario, setUsuario] = useState(null);
+
+    const toggleMostrarContraseña = (event) => {
+        setMostrarContraseña(event.target.checked);
+    };
 
     const functAutenticacion = async (e) => {
         e.preventDefault();
+        const nombre = registrando ? e.target.nombre?.value : null; // Solo obtener nombre en registro
         const correo = e.target.email.value;
         const contraseña = e.target.password.value;
-        const name = 'Juan Camilo Ruiz Osorio';
 
         if (registrando) {
             try {
-                const res = await axios.post(
-                    'https://back-login-production.up.railway.app/api/register',
-                    {
-                        name,
-                        correo,
-                        contraseña,
-                    }
-                );
-                alert('Registro exitoso ✅');
-            } catch (err) {
-                alert('Error: ' + err.message);
+                await createUserWithEmailAndPassword(auth, correo, contraseña);
+                alert('Cuenta creada exitosamente. Por favor, inicia sesión.');
+                setRegistrando(false); // Cambiar a la vista de inicio de sesión
+
+                // Forzar el cierre de sesión inmediatamente después del registro
+                await signOut(auth);
+                setUsuario(null); // Actualizar el estado del usuario a null
+            } catch (error) {
+                alert(error.message);
             }
         } else {
             try {
                 await signInWithEmailAndPassword(auth, correo, contraseña);
+                navigate('/login'); // Redirigir a la página de login después del inicio de sesión
             } catch (error) {
-                alert(error.message);
+                alert('El correo o contraseña son incorrectos');
             }
         }
     };
 
-    const [usuario, setUsuario] = useState(null);
-
-    onAuthStateChanged(auth, (usuarioFirebase) => {
-        if (usuarioFirebase) {
-            //Usuario validado
-            setUsuario(usuarioFirebase);
-            navigate('/');
-        } else {
+    const cerrarSesion = async () => {
+        try {
+            await signOut(auth);
+            alert('Sesión cerrada correctamente.');
+            navigate('/login'); // Redirigir a la página de login
             setUsuario(null);
+        } catch (error) {
+            alert('Error al cerrar sesión.');
         }
+    };
+
+    const handleSalir = () => {
+        navigate('/'); // Redirige a la ruta principal (ajusta según tu necesidad)
+    };
+
+    // Modificamos onAuthStateChanged para solo establecer el usuario
+    onAuthStateChanged(auth, (usuarioFirebase) => {
+        setUsuario(usuarioFirebase);
     });
+
+    // Verificamos si hay un usuario logueado al montar el componente
+    React.useEffect(() => {
+        if (usuario) {
+        }
+    }, [usuario, navigate]);
 
     return (
         <div className="contenedor-login">
             <div className="lado-izquierdo">
+                <button className="btn-salir-login" onClick={handleSalir}>
+                    Salir
+                </button>
                 <div className="formulario-container">
                     <div className="logo-nombre-container">
                         <img
@@ -81,25 +103,51 @@ const Login = () => {
                         </div>
                     </div>
                     <p className="text-bienvenida">
-                        Bienvenido al inicio de sesión
+                        Bienvenido al{' '}
+                        {registrando ? 'Registro' : 'inicio de sesión'}
                     </p>
                     <form onSubmit={functAutenticacion}>
+                        {registrando && (
+                            <>
+                                <p className="text-correo-contraseña">Nombre</p>
+                                <input
+                                    type="text"
+                                    placeholder=""
+                                    className="cajatexto"
+                                    id="nombre"
+                                />
+                            </>
+                        )}
                         <p className="text-correo-contraseña">
                             Correo Electrónico
                         </p>
                         <input
-                            type="text"
+                            type="email"
                             placeholder=""
                             className="cajatexto"
                             id="email"
                         />
                         <p className="text-correo-contraseña">Contraseña</p>
                         <input
-                            type="password"
+                            type={mostrarContraseña ? 'text' : 'password'}
                             placeholder=""
                             className="cajatexto"
                             id="password"
                         />
+                        <div className="mostrar-contraseña-container">
+                            <input
+                                type="checkbox"
+                                id="mostrarContraseña"
+                                checked={mostrarContraseña}
+                                onChange={toggleMostrarContraseña}
+                            />
+                            <label
+                                htmlFor="mostrarContraseña"
+                                className="text-mostrar-contraseña"
+                            >
+                                Mostrar Contraseña
+                            </label>
+                        </div>
                         <button className="btnform">
                             {registrando ? 'Registrate' : 'Entrar'}
                         </button>
@@ -107,7 +155,7 @@ const Login = () => {
                     <h4 className="texto">
                         {registrando
                             ? 'Si ya tienes cuenta'
-                            : '¿No tienes cuenta?'}
+                            : 'No tienes cuenta'}
                         <button
                             className="btnswitch"
                             onClick={() => setRegistrando(!registrando)}
@@ -115,6 +163,14 @@ const Login = () => {
                             {registrando ? 'Inicia sesión' : 'Regístrate'}
                         </button>
                     </h4>
+                    {usuario && (
+                        <button
+                            className="btn-cerrar-sesion"
+                            onClick={cerrarSesion}
+                        >
+                            Cerrar Sesión
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="lado-derecho">

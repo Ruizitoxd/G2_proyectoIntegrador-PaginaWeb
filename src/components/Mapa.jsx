@@ -11,6 +11,7 @@ import { conglomerados } from '../data/conglomerados';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Mapa.css';
+import SliderFilter from './SliderFilter';
 
 export default function Mapa() {
     const tileStyles = {
@@ -136,13 +137,16 @@ export default function Mapa() {
                                 className="form-select shadow-sm"
                                 style={{ maxWidth: '250px' }}
                             >
-                                <option value="">Seleccionar región</option>
+                                <option value="">
+                                    Seleccionar post-estrato
+                                </option>
                                 <option value="">Bosque</option>
                                 <option value="">No Bosque</option>
                             </select>
                         </div>
 
                         {/* Filtro de número de conglomerados */}
+                        <SliderFilter />
                     </div>
 
                     {/* Lista de conglomerados activos en el mapa*/}

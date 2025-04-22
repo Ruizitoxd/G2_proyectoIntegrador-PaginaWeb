@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Menu from "./pages/MenuConglomerado";
 
 import Inicio from './pages/Inicio';
@@ -16,6 +17,7 @@ function AppContent() {
 
     return (
         <>
+            {/* Decidir si mostrar el navbar y el header o no */}
             {!isLoginPage && <Header />}
             {!isLoginPage && <Navbar />}
 
@@ -28,6 +30,9 @@ function AppContent() {
                 <Route path='/TablaColeccionBotanica' element={<TablaColeccionBotanica />} />
                 <Route path='/Login' element={<Login />} />
             </Routes>
+
+            {/* Decidir si mostrar el footer o no */}
+            {!isLoginPage && <Footer />}
         </>
     );
 }

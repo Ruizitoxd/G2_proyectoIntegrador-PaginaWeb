@@ -5,22 +5,22 @@
     overflow: hidden;
     margin: 20px auto;
     max-width: 90%;
-  }
-  
-  .table-header {
+}
+
+.table-header {
     background-color: #007bff; /* azul */
     color: white;
     padding: 16px;
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
-  }
-  
-  .data-table-wrapper {
+}
+
+.data-table-wrapper {
     padding: 16px;
-  }
-  
-  .card-link {
+}
+
+.card-link {
     display: block;
     text-decoration: none;
     color: inherit;
@@ -28,38 +28,37 @@
     border-radius: 10px;
     width: 300px;
     text-align: center;
-
 }
 
-img{
+img {
     width: 100px;
 }
 .card-uno {
     background-color: #42992c;
     color: #ffffff;
-    display: flex;           /* ✅ Esto alinea imagen y texto en fila */
-    align-items: center;     /* Centra verticalmente */
+    display: flex; /* ✅ Esto alinea imagen y texto en fila */
+    align-items: center; /* Centra verticalmente */
     padding: 16px;
     border-radius: 12px;
-    margin-left: 40px;       /* Para mover la tarjeta a la derecha */
+    margin-left: 40px; /* Para mover la tarjeta a la derecha */
 }
 
 .card-dos {
-    background-color:  #99532c;;
+    background-color: #99532c;
     color: #ffffff;
-    display: flex;           /* ✅ Esto alinea imagen y texto en fila */
-    align-items: center;     /* Centra verticalmente */
+    display: flex; /* ✅ Esto alinea imagen y texto en fila */
+    align-items: center; /* Centra verticalmente */
     padding: 16px;
     border-radius: 12px;
-    margin-left: 40px;       /* Para mover la tarjeta a la derecha */
+    margin-left: 40px; /* Para mover la tarjeta a la derecha */
 }
 
 .card-tres {
     background-color: #97992c;
     color: #ffffff;
-    display: flex;           /* ✅ Esto alinea imagen y texto en fila */
-    align-items: center;     /* Centra verticalmente */
+    display: flex; /* ✅ Esto alinea imagen y texto en fila */
+    align-items: center; /* Centra verticalmente */
     padding: 16px;
     border-radius: 12px;
-    margin-left: 40px;       /* Para mover la tarjeta a la derecha */
+    margin-left: 40px; /* Para mover la tarjeta a la derecha */
 }

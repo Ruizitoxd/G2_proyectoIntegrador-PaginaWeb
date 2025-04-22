@@ -15,6 +15,7 @@
     justify-content: center;
     align-items: center;
     padding: 40px;
+    position: relative; /* Necesario para posicionar el botón salir */
 }
 
 .lado-derecho {
@@ -65,6 +66,7 @@
 .text-correo-contraseña {
     color: white;
     font-size: 19px;
+    margin-bottom: 5px;
 }
 
 .cajatexto {
@@ -73,7 +75,7 @@
     width: 100%;
     padding: 15px;
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .cajatexto:focus {
@@ -89,6 +91,7 @@
     border: none;
     margin-bottom: 20px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .texto {
@@ -109,6 +112,56 @@
     cursor: pointer;
 }
 
+.mostrar-contraseña-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.mostrar-contraseña-container input[type='checkbox'] {
+    margin-right: 10px;
+}
+
+.text-mostrar-contraseña {
+    color: white;
+    font-size: 16px;
+}
+
+.btn-cerrar-sesion {
+    background-color: #dc3545; /* Color rojo */
+    color: white;
+    border-radius: 12px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    /* Estilos para el botón de cerrar sesión si decides mantenerlo aquí */
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #c82333;
+}
+
+.btn-salir-login {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+
+.btn-salir-login:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 /* Responsive: en móviles que se oculte la imagen */
 @media screen and (max-width: 768px) {
     .contenedor-login {
@@ -122,5 +175,10 @@
 
     .lado-derecho {
         display: none;
+    }
+
+    .btn-salir-login {
+        top: 10px;
+        left: 10px;
     }
 }
