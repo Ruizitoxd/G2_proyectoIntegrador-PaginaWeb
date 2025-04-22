@@ -9,6 +9,8 @@ import TablaArboles from './pages/TablasArboles'
 import TablasSuelos from './pages/TablaSuelos'
 import TablaColeccionBotanica from './pages/TabasColeccionBotanica'
 
+
+
 function App() {
     return (
         <Router>
@@ -22,6 +24,7 @@ function App() {
                 <Route path='/TablaSuelos' element={<TablasSuelos/>}/>
                 <Route path='/TablaColeccionBotanica' element={<TablaColeccionBotanica/>}/>
             </Routes>  
+    
         </Router>
     );
 }

@@ -7,9 +7,10 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
-import { conglomerados } from '../data/conglomerados';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
+import { useFetch } from '../data/useFetch';
+import { useEffect, useMemo } from 'react';
 import '../styles/Mapa.css';
 
 export default function Mapa() {
@@ -30,7 +31,39 @@ export default function Mapa() {
     };
 
     const [selectedStyle, setSelectedStyle] = useState('OpenStreetMap');
+    //
+    
+    const { data} = useFetch(
+        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/conglomerado/obtener-id-conglomerado'
+    );
 
+
+    const conglomerados = useMemo(() => {
+        if (!data || !Array.isArray(data)) return [];
+        return data.map((item) => ({
+            id: item.id,
+            latitud: parseFloat(item.latitud),
+            longitud: parseFloat(item.longitud),
+            observaciones: item.observaciones,
+            region: item.region,
+            posEstrato: item.posEstrato,
+        }));
+    }, [data]);
+
+    // Imprimir conglomerados una vez cargados
+    useEffect(() => {
+        if (conglomerados.length > 0) {
+            console.log('Lista de conglomerados:');
+            conglomerados.forEach((item, index) => {
+                console.log(`Conglomerado ${index + 1}:`, item);
+            });
+        }
+    }, [conglomerados]);
+
+
+
+
+    //
     return (
         <div className="map-container">
             {/* Botón que abre el offcanvas de filtros */}
@@ -64,12 +97,12 @@ export default function Mapa() {
                 {conglomerados.map((item) => (
                     <Circle
                         key={item.id}
-                        center={[item.lat, item.lng]}
-                        radius={item.radio}
+                        center={[item.latitud, item.longitud]}
+                        radius={160}
                         pathOptions={{
-                            color: item.color,
+                            color: "red",
                             fillOpacity: 0.4,
-                            fillColor: item.color,
+                            fillColor: "red",
                         }}
                     >
                         <Popup>{item.nombre}</Popup>
