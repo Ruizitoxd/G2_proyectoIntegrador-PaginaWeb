@@ -15,6 +15,7 @@
 
 .visor-panel {
     width: 55%;
+    overflow-y: auto;
 }
 
 @media (max-width: 768px) {
