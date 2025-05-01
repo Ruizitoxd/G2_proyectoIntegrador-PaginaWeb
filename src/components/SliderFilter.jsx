@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import '../styles/SliderFilter.css';
 
 export default function SliderFilter() {
@@ -13,20 +13,27 @@ export default function SliderFilter() {
     const minLabelRef = useRef(null);
     const maxLabelRef = useRef(null);
 
-    useEffect(() => {
-        updateSliderUI();
-    }, [min, max]);
-
-    const updateSliderUI = () => {
+    const updateSliderUI = useCallback(() => {
         const minPercent = (min / rangeMax) * 100;
         const maxPercent = (max / rangeMax) * 100;
 
-        progressRef.current.style.left = `${minPercent}%`;
-        progressRef.current.style.right = `${100 - maxPercent}%`;
+        if (progressRef.current) {
+            progressRef.current.style.left = `${minPercent}%`;
+            progressRef.current.style.right = `${100 - maxPercent}%`;
+        }
 
-        minLabelRef.current.style.left = `${minPercent}%`;
-        maxLabelRef.current.style.left = `${maxPercent}%`;
-    };
+        if (minLabelRef.current) {
+            minLabelRef.current.style.left = `${minPercent}%`;
+        }
+
+        if (maxLabelRef.current) {
+            maxLabelRef.current.style.left = `${maxPercent}%`;
+        }
+    }, [min, max]);
+
+    useEffect(() => {
+        updateSliderUI();
+    }, [updateSliderUI]);
 
     const handleMinChange = (e) => {
         const value = parseInt(e.target.value);

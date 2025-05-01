@@ -2,13 +2,13 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Menu from "./pages/MenuConglomerado";
 
 import Inicio from './pages/Inicio';
 import MapaConglomerados from './pages/MapaConglomerados';
 import TablaArboles from './pages/TablaArboles';
 import TablaSuelos from './pages/TablaSuelos';
 import TablaColeccionBotanica from './pages/TablaColeccionBotanica';
+import ManualDeConsulta from './pages/ManualDeConsulta';
 import Login from './pages/Login';
 
 function AppContent() {
@@ -25,9 +25,9 @@ function AppContent() {
                 <Route path="/" element={<Inicio />} />
                 <Route path="/MapaConglomerados" element={<MapaConglomerados />} />
                 <Route path='/TablaArboles' element={<TablaArboles />} />
-                <Route path='/MenuConglomerado' element={<Menu />} />
                 <Route path='/TablaSuelos' element={<TablaSuelos />} />
                 <Route path='/TablaColeccionBotanica' element={<TablaColeccionBotanica />} />
+                <Route path='/ManualDeConsulta' element={<ManualDeConsulta />} />
                 <Route path='/Login' element={<Login />} />
             </Routes>
 
