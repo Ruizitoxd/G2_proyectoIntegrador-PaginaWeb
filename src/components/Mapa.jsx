@@ -39,7 +39,34 @@ export default function Mapa() {
     const conglomerados = useConglomerados(region, posEstrato);
 
     const colorRandom = () => {
-        const colores = ['purple', 'orange', 'red', 'blue', 'green', 'yellow'];
+        const colores = [
+            'red',
+            'orange',
+            'yellow',
+            'green',
+            'blue',
+            'purple',
+            'cyan',
+            'magenta',
+            'pink',
+            'lime',
+            'fuchsia',
+            'aqua',
+            'indigo',
+            'violet',
+            'turquoise',
+            'coral',
+            'teal',
+            'chartreuse',
+            'salmon',
+            'tomato',
+            'gold',
+            'crimson',
+            'orchid',
+            'plum',
+            'dodgerblue',
+        ];
+
         return colores[Math.floor(Math.random() * colores.length)];
     };
     return (
@@ -83,42 +110,47 @@ export default function Mapa() {
                 <ZoomControl position="bottomright" />
 
                 {/* Ciclo que coloca los circulos del mapa según la información de los conglomerados */}
-                {conglomerados.map((item) => (
-                    <Circle
-                        key={item.id}
-                        center={[item.latitud, item.longitud]}
-                        radius={160}
-                        pathOptions={{
-                            color: colorRandom(),
-                            fillOpacity: 0.4,
-                            fillColor: colorRandom(),
-                        }}
-                    >
-                        <Popup>
-                            <div>
-                                <p>
-                                    <strong>id:</strong> {item.id}
-                                </p>
-                                <p>
-                                    <strong>región:</strong> {item.region}
-                                </p>
-                                <p>
-                                    <strong>latitud:</strong> {item.latitud}
-                                </p>
-                                <p>
-                                    <strong>longitud:</strong> {item.longitud}
-                                </p>
-                                <p>
-                                    <strong>estrato:</strong> {item.posEstrato}
-                                </p>
-                                <p>
-                                    <strong>observaciones:</strong>{' '}
-                                    {item.observaciones}
-                                </p>
-                            </div>
-                        </Popup>
-                    </Circle>
-                ))}
+                {conglomerados.map((item) => {
+                    const color = colorRandom(); // Generar el color una vez
+                    return (
+                        <Circle
+                            key={item.id}
+                            center={[item.latitud, item.longitud]}
+                            radius={160}
+                            pathOptions={{
+                                color: color,
+                                fillOpacity: 0.4,
+                                fillColor: color,
+                            }}
+                        >
+                            <Popup>
+                                <div>
+                                    <p>
+                                        <strong>Id:</strong> {item.id}
+                                    </p>
+                                    <p>
+                                        <strong>Región:</strong> {item.region}
+                                    </p>
+                                    <p>
+                                        <strong>Latitud:</strong> {item.latitud}
+                                    </p>
+                                    <p>
+                                        <strong>Longitud:</strong>{' '}
+                                        {item.longitud}
+                                    </p>
+                                    <p>
+                                        <strong>Estrato:</strong>{' '}
+                                        {item.posEstrato}
+                                    </p>
+                                    <p>
+                                        <strong>Observaciones:</strong>{' '}
+                                        {item.observaciones}
+                                    </p>
+                                </div>
+                            </Popup>
+                        </Circle>
+                    );
+                })}
             </MapContainer>
 
             {/* Sección del offcanvas de filtros */}
