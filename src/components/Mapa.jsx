@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Mapa.css';
 import SliderFilter from './SliderFilter';
-import ChangeView from './ChangeView.jsx'
+import ChangeView from './ChangeView.jsx';
 
 export default function Mapa() {
     const tileStyles = {
@@ -37,9 +37,9 @@ export default function Mapa() {
     const [posEstrato, setPosEstrato] = useState('');
 
     const conglomerados = useConglomerados(region, posEstrato);
-    
+
     const colorRandom = () => {
-        const colores = ["purple", "orange", "red", "blue", "green", "yellow"];
+        const colores = ['purple', 'orange', 'red', 'blue', 'green', 'yellow'];
         return colores[Math.floor(Math.random() * colores.length)];
     };
     return (
@@ -62,10 +62,17 @@ export default function Mapa() {
                 style={{ height: '80vh', width: '100%' }}
                 zoomControl={false}
             >
-                    <ChangeView
-        center={conglomerados?.[0] ? [conglomerados[0].latitud, conglomerados[0].longitud] : [7.111, -73.05]}
-        zoom={16}
-    />
+                <ChangeView
+                    center={
+                        conglomerados?.[0]
+                            ? [
+                                  conglomerados[0].latitud,
+                                  conglomerados[0].longitud,
+                              ]
+                            : [7.111, -73.05]
+                    }
+                    zoom={16}
+                />
                 {/* Establece el estilo del mapa */}
                 <TileLayer
                     url={tileStyles[selectedStyle].url}
@@ -87,7 +94,29 @@ export default function Mapa() {
                             fillColor: colorRandom(),
                         }}
                     >
-                        <Popup>{item.region}</Popup>
+                        <Popup>
+                            <div>
+                                <p>
+                                    <strong>id:</strong> {item.id}
+                                </p>
+                                <p>
+                                    <strong>región:</strong> {item.region}
+                                </p>
+                                <p>
+                                    <strong>latitud:</strong> {item.latitud}
+                                </p>
+                                <p>
+                                    <strong>longitud:</strong> {item.longitud}
+                                </p>
+                                <p>
+                                    <strong>estrato:</strong> {item.posEstrato}
+                                </p>
+                                <p>
+                                    <strong>observaciones:</strong>{' '}
+                                    {item.observaciones}
+                                </p>
+                            </div>
+                        </Popup>
                     </Circle>
                 ))}
             </MapContainer>
