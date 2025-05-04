@@ -47,6 +47,9 @@
     color: #ffffff;
 }
 
+.card-text{
+    font-size: 20000px;
+}
 .card-info .card-text i {
     margin-right: 8px;
     color: #6c757d; /* color para los íconos */
