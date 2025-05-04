@@ -5,9 +5,9 @@ import Footer from "./components/Footer";
 
 import Inicio from './pages/Inicio';
 import MapaConglomerados from './pages/MapaConglomerados';
-import TablaArboles from './pages/TablasArboles'
-import TablasSuelos from './pages/TablaSuelos'
-import TablaColeccionBotanica from './pages/TabasColeccionBotanica'
+import TablaArboles from './pages/TablaArboles';
+import TablaSuelos from './pages/TablaSuelos';
+import TablaColeccionBotanica from './pages/TablaColeccionBotanica';
 import ManualDeConsulta from './pages/ManualDeConsulta';
 import Login from './pages/Login';
 
