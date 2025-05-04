@@ -589,13 +589,13 @@ const seccionesseguimientoaactividades = [
 const seccionesregistrofotografico = [
     {
         id: 'Registrofotografico',
-        titulo: 'Listado de fotografías - Foto 1 - Foto 2 - Foto 3 - Foto 4 - Foto 5',
+        titulo: 'Listado de fotografías - Fotografía 1 - 5',
         descripcion:
             'Sumado a las actividades propias del muestreo en campo, descritas a lo largo del presente manual, el IFN contempla de manera adicional, la generación de un anexo o registro fotográfico en los lugares en los cuales se establecieron los conglomerados, a fin de tener evidencias que soporten y documenten el trabajo realizado en terreno y contar con los elementos necesarios que faciliten su ubicación en visitas posteriores.',
         pdfUrl: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=156',
         subventanas: [
             {
-                nombre: 'Foto 6 - Foto 7 - Foto 8 - Foto 9 - Foto 10',
+                nombre: 'Listado de fotografías - Fotografía 6 - 10',
                 url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=157',
             },
         ],
