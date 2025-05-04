@@ -1,35 +1,58 @@
 import React, { useState } from 'react';
-import Tabla from '../components/Tabla';
+import { useArboles } from '../data/useArbolesYConglomerados';
+import { useTodosConglomerados } from '../data/useTodosConglomerados';
 import { useFetch } from '../data/useFetch';
 import { CardBody2 } from '../components/Card';
-import Suelo from '../Images/water-waves.png';
-import { useTodosConglomerados } from '../data/useTodosConglomerados';
-import { useSuelos } from '../data/useSuelos';
+import Arbol from '../Images/tree-icon.png';
+import Tabla from '../components/Tabla';
 import '../styles/Tabla.css';
 
 const columns = [
     { name: 'Id', selector: (row) => row.Id, sortable: true },
-    { name: 'Carbono', selector: (row) => row.Carbono, sortable: true },
-    { name: 'Color', selector: (row) => row.Color, sortable: true },
-    { name: 'Fertilidad', selector: (row) => row.Fertilidad, sortable: true },
+    { name: 'Tamaño', selector: (row) => row.Tamaño, sortable: true },
+    { name: 'Condicion', selector: (row) => row.Condicion, sortable: true },
+    { name: 'Azimut', selector: (row) => row.Azimut, sortable: true },
+    { name: 'Distancia', selector: (row) => row.Distancia, sortable: true },
     {
-        name: 'Observaciones',
-        selector: (row) => row.Observaciones,
+        name: 'Numero fustes',
+        selector: (row) => row.Numero_fustes,
+        sortable: true,
+    },
+    { name: 'Diametro', selector: (row) => row.Diametro, sortable: true },
+    {
+        name: 'Altura fuste',
+        selector: (row) => row.Altura_fuste,
+        sortable: true,
+    },
+    { name: 'Forma fuste', selector: (row) => row.Forma_fuste, sortable: true },
+    {
+        name: 'Diametro fuste',
+        selector: (row) => row.Diametro_fuste,
+        sortable: true,
+    },
+    {
+        name: 'Altura total',
+        selector: (row) => row.Altura_total,
+        sortable: true,
+    },
+    {
+        name: 'Diametro copa',
+        selector: (row) => row.Diametro_copa,
         sortable: true,
     },
 ];
 
 function App() {
-    const { data: totalSuelos, loading: loadingTotal } = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/suelo/obtener-cantidad-suelo'
+    const { data: totalArboles, loading: loadingTotal } = useFetch(
+        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/arbol/obtener-cantidad-arboles'
     );
 
     const [selectedConglomerado, setSelectedConglomerado] = useState('');
-    const { conglomerados, loadingConglomerados } = useTodosConglomerados();
-
     const [selectedSubparcela, setSelectedSubparcela] = useState('Todas');
 
-    const { suelo, loading } = useSuelos(
+    const { conglomerados, loadingConglomerados } = useTodosConglomerados();
+
+    const { arboles, loading } = useArboles(
         selectedConglomerado,
         selectedSubparcela
     );
@@ -38,19 +61,21 @@ function App() {
         return <p className="loading">Cargando datos...</p>;
     }
 
+ 
+
     return (
         <>
             <div className="card-containers">
-                {!loadingTotal && totalSuelos && (
+                {!loadingTotal && totalArboles.length > 0 && (
                     <CardBody2
-                        title="Muestras de suelos"
-                        text={String(totalSuelos.total_suelos)}
-                        className="card-link card-dos"
-                        img={Suelo}
+                        title="Muestras de árboles"
+                        text={String(totalArboles[0].total_arboles)}
+                        className="card-link card-uno"
+                        img={Arbol}
                     />
                 )}
-                
-                <label className="input-group select-dos">
+
+                <label className="input-group select-uno">
                     <span>Conglomerados</span>
                     <select
                         value={selectedConglomerado}
@@ -68,7 +93,7 @@ function App() {
                     </select>
                 </label>
 
-                <label className="input-group select-dos">
+                <label className="input-group select-uno">
                     <span>Sub-Parcela</span>
                     <select
                         value={selectedSubparcela}
@@ -85,7 +110,7 @@ function App() {
             </div>
 
             <div className="App">
-                <Tabla columns={columns} data={suelo} />
+                <Tabla columns={columns} data={arboles} />
             </div>
         </>
     );

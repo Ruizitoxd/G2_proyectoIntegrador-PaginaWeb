@@ -1,32 +1,46 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
-import Menu from "./pages/MenuConglomerado"
+import Footer from "./components/Footer";
 
 import Inicio from './pages/Inicio';
 import MapaConglomerados from './pages/MapaConglomerados';
 import TablaArboles from './pages/TablasArboles'
 import TablasSuelos from './pages/TablaSuelos'
 import TablaColeccionBotanica from './pages/TabasColeccionBotanica'
+import ManualDeConsulta from './pages/ManualDeConsulta';
+import Login from './pages/Login';
 
+function AppContent() {
+    const location = useLocation();
+    const isLoginPage = location.pathname === "/Login";
 
-
-function App() {
     return (
-        <Router>
-            <Header />
-            <Navbar />
+        <>
+            {/* Decidir si mostrar el navbar y el header o no */}
+            {!isLoginPage && <Header />}
+            {!isLoginPage && <Navbar />}
+
             <Routes>
                 <Route path="/" element={<Inicio />} />
                 <Route path="/MapaConglomerados" element={<MapaConglomerados />} />
-                <Route path='/TablaArboles' element={<TablaArboles/>}/>
-                <Route path='/MenuConglomerado'element={<Menu/>}/>
-                <Route path='/TablaSuelos' element={<TablasSuelos/>}/>
-                <Route path='/TablaColeccionBotanica' element={<TablaColeccionBotanica/>}/>
-            </Routes>  
-    
-        </Router>
+                <Route path='/TablaArboles' element={<TablaArboles />} />
+                <Route path='/TablaSuelos' element={<TablaSuelos />} />
+                <Route path='/TablaColeccionBotanica' element={<TablaColeccionBotanica />} />
+                <Route path='/ManualDeConsulta' element={<ManualDeConsulta />} />
+                <Route path='/Login' element={<Login />} />
+            </Routes>
+
+            {/* Decidir si mostrar el footer o no */}
+            {!isLoginPage && <Footer />}
+        </>
     );
 }
 
-export default App;
+export default function App() {
+    return (
+        <Router>
+            <AppContent />
+        </Router>
+    );
+}

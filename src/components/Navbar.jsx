@@ -33,36 +33,42 @@ export default function Navbar() {
                     <Link
                         to="/TablaArboles"
                         className={classNames('nav-link', {
-                            active: location.pathname === '/MapaConglomerados',
+                            active: location.pathname === '/TablaArboles',
                         })}
                     >
                         Muestras arbóreas
                     </Link>
                 </li>
                 <li className="nav-item montserrat-nav-item mx-2">
-                <Link
+                    <Link
                         to="/TablaSuelos"
                         className={classNames('nav-link', {
-                            active: location.pathname === '/MapaConglomerados',
+                            active: location.pathname === '/TablaSuelos',
                         })}
                     >
                         Muestras de Suelos
                     </Link>
                 </li>
                 <li className="nav-item montserrat-nav-item mx-2">
-                <Link
+                    <Link
                         to="/TablaColeccionBotanica"
                         className={classNames('nav-link', {
-                            active: location.pathname === '/MapaConglomerados',
+                            active:
+                                location.pathname === '/TablaColeccionBotanica',
                         })}
                     >
                         Colección Botánica
                     </Link>
                 </li>
                 <li className="nav-item montserrat-nav-item mx-2">
-                    <a className="nav-link" href="#">
-                        Manual de Consulta
-                    </a>
+                    <Link
+                        to="/ManualDeConsulta"
+                        className={classNames('nav-link', {
+                            active: location.pathname === '/ManualDeConsulta',
+                        })}
+                    >
+                        Manual de consulta
+                    </Link>
                 </li>
             </ul>
         </div>

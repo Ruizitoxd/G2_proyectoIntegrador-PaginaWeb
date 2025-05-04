@@ -1,13 +1,11 @@
+import Carrusel from '../components/Carrusel';
 
-
-export default function Inicio() {
-
-  
-
+const Inicio = () => {
     return (
-        <div>
-            <h1>Bienvenido a la Página de Inicio</h1>
-            <p>Esta es la sección principal de la aplicación.</p>
+        <div style={{ margin: 0, padding: 0 }}>
+            <Carrusel />
         </div>
     );
-}
+};
+
+export default Inicio;

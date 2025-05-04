@@ -16,7 +16,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 1.5em !important;
     font-optical-sizing: auto;
-    font-weight: 900;
+    font-weight: 700;
     font-style: normal;
 }
 
@@ -24,4 +24,21 @@
     display: flex;
     flex-direction: column;
     color: white !important;
+}
+
+.login-button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+
+    /* Reservamos el espacio del bold para que no se mueva */
+    font-weight: normal;
+    transition: font-weight 0.2s ease, color 0.2s ease;
+}
+
+.login-button:hover {
+    font-weight: bold;
 }

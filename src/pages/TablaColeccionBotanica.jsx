@@ -2,34 +2,43 @@ import React, { useState } from 'react';
 import Tabla from '../components/Tabla';
 import { useFetch } from '../data/useFetch';
 import { CardBody2 } from '../components/Card';
-import Suelo from '../Images/water-waves.png';
-import { useTodosConglomerados } from '../data/useTodosConglomerados';
-import { useSuelos } from '../data/useSuelos';
+import Hojas from '../Images/leaf.png';
+import { useTodosConglomerados } from '../data/useTodosConglomerados'
+import {useColeccion} from '../data/useColeccion'
 import '../styles/Tabla.css';
 
 const columns = [
     { name: 'Id', selector: (row) => row.Id, sortable: true },
-    { name: 'Carbono', selector: (row) => row.Carbono, sortable: true },
-    { name: 'Color', selector: (row) => row.Color, sortable: true },
-    { name: 'Fertilidad', selector: (row) => row.Fertilidad, sortable: true },
+    { name: 'Tamaño', selector: (row) => row.Tamaño, sortable: true },
+    {
+        name: 'Nombre Comun',
+        selector: (row) => row.Nombre_Comun,
+        sortable: true,
+    },
+    {
+        name: 'Nombre Cientifico',
+        selector: (row) => row.Nombre_Cientifico,
+        sortable: true,
+    },
     {
         name: 'Observaciones',
         selector: (row) => row.Observaciones,
         sortable: true,
     },
+    { name: 'Foto', selector: (row) => row.Foto, sortable: true },
 ];
 
 function App() {
-    const { data: totalSuelos, loading: loadingTotal } = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/suelo/obtener-cantidad-suelo'
-    );
 
+        const { data: totalColeccion, loading: loadingTotal } = useFetch(
+            'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/ColeccionBotanica/obtener-cantidad-ColeccionBotanico'
+        );
+    
     const [selectedConglomerado, setSelectedConglomerado] = useState('');
+    const [selectedSubparcela, setSelectedSubparcela] = useState('Todas');
     const { conglomerados, loadingConglomerados } = useTodosConglomerados();
 
-    const [selectedSubparcela, setSelectedSubparcela] = useState('Todas');
-
-    const { suelo, loading } = useSuelos(
+    const { Coleccion, loading } = useColeccion(
         selectedConglomerado,
         selectedSubparcela
     );
@@ -38,25 +47,24 @@ function App() {
         return <p className="loading">Cargando datos...</p>;
     }
 
+ 
+
     return (
         <>
             <div className="card-containers">
-                {!loadingTotal && totalSuelos && (
-                    <CardBody2
-                        title="Muestras de suelos"
-                        text={String(totalSuelos.total_suelos)}
-                        className="card-link card-dos"
-                        img={Suelo}
-                    />
-                )}
-                
-                <label className="input-group select-dos">
+                {!loadingTotal && totalColeccion &&(
+                <CardBody2
+                    title="Muestras botánicas. "
+                    text={String(totalColeccion.total_coleccion)}
+                    className="card-tres"
+                    img={Hojas}
+                />
+)}
+            <label className="input-group select-tres">
                     <span>Conglomerados</span>
                     <select
                         value={selectedConglomerado}
-                        onChange={(e) =>
-                            setSelectedConglomerado(e.target.value)
-                        }
+                        onChange={(e) => setSelectedConglomerado(e.target.value)}
                     >
                         <option value="">Todos</option>
                         {!loadingConglomerados &&
@@ -68,7 +76,7 @@ function App() {
                     </select>
                 </label>
 
-                <label className="input-group select-dos">
+                <label className="input-group select-tres">
                     <span>Sub-Parcela</span>
                     <select
                         value={selectedSubparcela}
@@ -85,7 +93,7 @@ function App() {
             </div>
 
             <div className="App">
-                <Tabla columns={columns} data={suelo} />
+                <Tabla columns={columns} data={Coleccion} />
             </div>
         </>
     );

@@ -1,0 +1,31 @@
+.manual-layout {
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+    margin: 1.5% 0;
+    box-shadow: 0px 0px 58px 0px rgba(0, 0, 0, 0.22),
+        0px 5px 14px 0px rgba(0, 0, 0, 0.18);
+}
+
+.manual-panel {
+    width: 45%;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+.visor-panel {
+    width: 55%;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .manual-layout {
+        flex-direction: column;
+    }
+
+    .manual-panel,
+    .visor-panel {
+        width: 100%;
+        height: 50%;
+    }
+}

@@ -1,11 +1,18 @@
-// src/components/Mapa.js
-import { MapContainer, TileLayer, Circle, Popup, ZoomControl } from 'react-leaflet';
+import {
+    MapContainer,
+    TileLayer,
+    Circle,
+    Popup,
+    ZoomControl,
+} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
+import { useConglomerados } from '../data/useConglomerados.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
-import { useConglomerados } from '../data/useConglomerados.js'; // Importa el hook
 import '../styles/Mapa.css';
+import SliderFilter from './SliderFilter';
+import ChangeView from './ChangeView.jsx'
 
 export default function Mapa() {
     const tileStyles = {
@@ -25,12 +32,19 @@ export default function Mapa() {
     };
 
     const [selectedStyle, setSelectedStyle] = useState('OpenStreetMap');
+    // Agrega esto arriba
+    const [region, setRegion] = useState('');
+    const [posEstrato, setPosEstrato] = useState('');
 
-    // Usar el hook customizado para obtener los conglomerados
-    const conglomerados = useConglomerados();
-
+    const conglomerados = useConglomerados(region, posEstrato);
+    
+    const colorRandom = () => {
+        const colores = ["purple", "orange", "red", "blue", "green", "yellow"];
+        return colores[Math.floor(Math.random() * colores.length)];
+    };
     return (
         <div className="map-container">
+            {/* Botón que abre el offcanvas de filtros */}
             <button
                 className="btn btn-primary"
                 type="button"
@@ -41,27 +55,36 @@ export default function Mapa() {
                 <FontAwesomeIcon icon={faSliders} size="2x" />
             </button>
 
+            {/* Sección del mapa principal */}
             <MapContainer
                 center={[7.111, -73.05]}
                 zoom={16}
                 style={{ height: '80vh', width: '100%' }}
                 zoomControl={false}
             >
+                    <ChangeView
+        center={conglomerados?.[0] ? [conglomerados[0].latitud, conglomerados[0].longitud] : [7.111, -73.05]}
+        zoom={16}
+    />
+                {/* Establece el estilo del mapa */}
                 <TileLayer
                     url={tileStyles[selectedStyle].url}
                     attribution={tileStyles[selectedStyle].attribution}
                 />
+
+                {/* Establece la ubicación de los controles de zoom */}
                 <ZoomControl position="bottomright" />
 
+                {/* Ciclo que coloca los circulos del mapa según la información de los conglomerados */}
                 {conglomerados.map((item) => (
                     <Circle
                         key={item.id}
                         center={[item.latitud, item.longitud]}
                         radius={160}
                         pathOptions={{
-                            color: "red",
+                            color: colorRandom(),
                             fillOpacity: 0.4,
-                            fillColor: "red",
+                            fillColor: colorRandom(),
                         }}
                     >
                         <Popup>{item.region}</Popup>
@@ -79,8 +102,11 @@ export default function Mapa() {
                 aria-labelledby="offcanvasScrollingLabel"
             >
                 <div className="offcanvas-header">
-                    <h5 className="offcanvas-title" id="offcanvasScrollingLabel">
-                        Filtrar conglomerados
+                    <h5
+                        className="offcanvas-title"
+                        id="offcanvasScrollingLabel"
+                    >
+                        Filtrar por:
                     </h5>
                     <button
                         type="button"
@@ -91,7 +117,61 @@ export default function Mapa() {
                 </div>
                 <div className="offcanvas-body">
                     {/* Sección de filtros usables */}
-                    <div className="map-filter-section"></div>
+                    <div className="map-filter-section">
+                        {/* Filtro de región */}
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <label
+                                htmlFor="selectRegion"
+                                className="form-label fw-bold mb-0 me-2"
+                                style={{ minWidth: '100px' }}
+                            >
+                                Región:
+                            </label>
+                            <select
+                                id="selectRegion"
+                                className="form-select shadow-sm"
+                                style={{ maxWidth: '250px' }}
+                                value={region}
+                                onChange={(e) => setRegion(e.target.value)}
+                            >
+                                <option value="">Seleccionar región</option>
+                                <option value="Amazonas">Amazonas</option>
+                                <option value="Andina">Andina</option>
+                                <option value="Pacifica">Pacífica</option>
+                                <option value="Caribe">Caribe</option>
+                                <option value="Insular,">Insular</option>
+                                <option value="Orinoquia">Orinoquía</option>
+                                {/* Agrega más regiones si es necesario */}
+                            </select>
+                        </div>
+
+                        {/* Filtro de postestrato */}
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <label
+                                htmlFor="selectRegion"
+                                className="form-label fw-bold mb-0 me-2"
+                                style={{ minWidth: '100px' }}
+                            >
+                                Post Estrato:
+                            </label>
+                            <select
+                                id="selectPosEstrato"
+                                className="form-select shadow-sm"
+                                style={{ maxWidth: '250px' }}
+                                value={posEstrato}
+                                onChange={(e) => setPosEstrato(e.target.value)}
+                            >
+                                <option value="">
+                                    Seleccionar post-estrato
+                                </option>
+                                <option value="Bosque">Bosque</option>
+                                <option value="No Bosque">No Bosque</option>
+                            </select>
+                        </div>
+
+                        {/* Filtro de número de conglomerados */}
+                        <SliderFilter />
+                    </div>
 
                     {/* Lista de conglomerados activos en el mapa*/}
                     <div className="map-conglomerados-section"></div>
@@ -101,7 +181,9 @@ export default function Mapa() {
                         <div className="map-style-selector">
                             <div
                                 className="style-option"
-                                onClick={() => setSelectedStyle('OpenStreetMap')}
+                                onClick={() =>
+                                    setSelectedStyle('OpenStreetMap')
+                                }
                             >
                                 <img
                                     src={require('../Images/map_style_default.png')}

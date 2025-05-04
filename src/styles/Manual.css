@@ -1,0 +1,47 @@
+.accordion-header-custom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.texto-ver {
+    font-size: 14px;
+    color: #00a8cc;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.texto-ver.activo {
+    color: #005f73;
+}
+
+.manual-container {
+    padding: 20px;
+}
+
+.titulo-manual {
+    font-weight: bold;
+}
+
+.seccion-manual {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.boton-ver {
+    background-color: #00a8cc;
+    color: white;
+    border: none;
+    margin-right: 10px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.boton-ver:hover {
+    background-color: #007ea7;
+}
+

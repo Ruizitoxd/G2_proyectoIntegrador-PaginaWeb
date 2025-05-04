@@ -1,8 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import '../styles/Header.css';
 
 export default function Header() {
+    const navigate = useNavigate();
+
+    const irAlLogin = () => {
+        navigate('/Login');
+    };
+
     return (
         <header className="navbar">
             <div className="container-fluid">
@@ -15,7 +22,9 @@ export default function Header() {
                 </div>
                 <div className="navbar-user-container">
                     <FontAwesomeIcon icon={faCircleUser} size="3x" />
-                    <h5>Iniciar sesión</h5>
+                    <button className="login-button" onClick={irAlLogin}>
+                        Inciar sesión
+                    </button>
                 </div>
             </div>
         </header>
