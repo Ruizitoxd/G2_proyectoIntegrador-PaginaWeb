@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tabla from '../components/Tabla';
 import { useFetch } from '../data/useFetch';
 import { CardBody2 } from '../components/Card';
 import Hojas from '../Images/leaf.png';
+import { useTodosConglomerados } from '../data/useTodosConglomerados'
+import {useColeccion} from '../data/useColeccion'
 import '../styles/Tabla.css';
 
 const columns = [
@@ -27,53 +29,71 @@ const columns = [
 ];
 
 function App() {
-    const { data, loading } = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/ColeccionBotanica/obtener-todos-ColeccionBotanico'
+
+        const { data: totalColeccion, loading: loadingTotal } = useFetch(
+            'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/ColeccionBotanica/obtener-cantidad-ColeccionBotanico'
+        );
+    
+    const [selectedConglomerado, setSelectedConglomerado] = useState('');
+    const [selectedSubparcela, setSelectedSubparcela] = useState('Todas');
+    const { conglomerados, loadingConglomerados } = useTodosConglomerados();
+
+    const { Coleccion, loading } = useColeccion(
+        selectedConglomerado,
+        selectedSubparcela
     );
-    if (loading || !data || data.length === 0) {
+
+    if (loading) {
         return <p className="loading">Cargando datos...</p>;
     }
 
-    const datosColeccionBotanica = data.map((item) => ({
-        Id: item.id,
-        Tamaño: item.tamano,
-        Nombre_Comun: item.nombre_comun,
-        Nombre_Cientifico: item.nombre_cientifico,
-        Observaciones: item.observaciones_individuo,
-        Foto: item.foto,
-    }));
+ 
+
     return (
         <>
             <div className="card-containers">
+                {!loadingTotal && totalColeccion &&(
                 <CardBody2
-                    title="Muestras botánicas"
-                    text="Número de Colección Botánica"
+                    title="Muestras botánicas. "
+                    text={String(totalColeccion.total_coleccion)}
                     className="card-tres"
                     img={Hojas}
                 />
-
-                <label className="input-group select-tres">
+)}
+            <label className="input-group select-tres">
                     <span>Conglomerados</span>
-                    <select>
+                    <select
+                        value={selectedConglomerado}
+                        onChange={(e) => setSelectedConglomerado(e.target.value)}
+                    >
                         <option value="">Todos</option>
+                        {!loadingConglomerados &&
+                            conglomerados?.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                    {item.id}
+                                </option>
+                            ))}
                     </select>
                 </label>
 
                 <label className="input-group select-tres">
                     <span>Sub-Parcela</span>
-                    <select>
-                        <option value={'Todas'}>Todas</option>
-                        <option value={'1'}>1</option>
-                        <option value={'2'}>2</option>
-                        <option value={'3'}>3</option>
-                        <option value={'4'}>4</option>
-                        <option value={'5'}>5</option>
+                    <select
+                        value={selectedSubparcela}
+                        onChange={(e) => setSelectedSubparcela(e.target.value)}
+                    >
+                        <option value="Todas">Todas</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                 </label>
             </div>
 
             <div className="App">
-                <Tabla columns={columns} data={datosColeccionBotanica} />
+                <Tabla columns={columns} data={Coleccion} />
             </div>
         </>
     );

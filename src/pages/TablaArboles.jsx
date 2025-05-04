@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useArboles } from '../data/useArbolesYConglomerados';
+import { useTodosConglomerados } from '../data/useTodosConglomerados';
 import { useFetch } from '../data/useFetch';
 import { CardBody2 } from '../components/Card';
 import Arbol from '../Images/tree-icon.png';
@@ -41,61 +43,74 @@ const columns = [
 ];
 
 function App() {
-    const { data, loading } = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/arbol/obtener-todos-arboles'
+    const { data: totalArboles, loading: loadingTotal } = useFetch(
+        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/arbol/obtener-cantidad-arboles'
     );
 
-    if (loading || !data || data.length === 0) {
+    const [selectedConglomerado, setSelectedConglomerado] = useState('');
+    const [selectedSubparcela, setSelectedSubparcela] = useState('Todas');
+
+    const { conglomerados, loadingConglomerados } = useTodosConglomerados();
+
+    const { arboles, loading } = useArboles(
+        selectedConglomerado,
+        selectedSubparcela
+    );
+
+    if (loading) {
         return <p className="loading">Cargando datos...</p>;
     }
 
-    const datosArboles = data.map((item) => ({
-        Id: item.id,
-        Tamaño: item.tamano,
-        Condicion: item.condicion,
-        Azimut: item.azimut,
-        Distancia: item.distancia,
-        Numero_fustes: item.numero_fustes,
-        Diametro: item.diametro,
-        Altura_fuste: item.altura_fuste,
-        Forma_fuste: item.forma_fuste,
-        Diametro_fuste: item.diametro_fuste,
-        Altura_total: item.altura_total,
-        Diametro_copa: item.diametro_copa,
-    }));
+ 
 
     return (
         <>
             <div className="card-containers">
-                <CardBody2
-                    title="Muestras de árboles"
-                    text="Número de Árboles"
-                    className="card-link card-uno"
-                    img={Arbol}
-                />
+                {!loadingTotal && totalArboles.length > 0 && (
+                    <CardBody2
+                        title="Muestras de árboles"
+                        text={String(totalArboles[0].total_arboles)}
+                        className="card-link card-uno"
+                        img={Arbol}
+                    />
+                )}
 
                 <label className="input-group select-uno">
                     <span>Conglomerados</span>
-                    <select>
+                    <select
+                        value={selectedConglomerado}
+                        onChange={(e) =>
+                            setSelectedConglomerado(e.target.value)
+                        }
+                    >
                         <option value="">Todos</option>
+                        {!loadingConglomerados &&
+                            conglomerados?.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                    {item.id}
+                                </option>
+                            ))}
                     </select>
                 </label>
 
                 <label className="input-group select-uno">
                     <span>Sub-Parcela</span>
-                    <select>
-                        <option value={'Todas'}>Todas</option>
-                        <option value={'1'}>1</option>
-                        <option value={'2'}>2</option>
-                        <option value={'3'}>3</option>
-                        <option value={'4'}>4</option>
-                        <option value={'5'}>5</option>
+                    <select
+                        value={selectedSubparcela}
+                        onChange={(e) => setSelectedSubparcela(e.target.value)}
+                    >
+                        <option value="Todas">Todas</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                 </label>
             </div>
 
             <div className="App">
-                <Tabla columns={columns} data={datosArboles} />
+                <Tabla columns={columns} data={arboles} />
             </div>
         </>
     );
