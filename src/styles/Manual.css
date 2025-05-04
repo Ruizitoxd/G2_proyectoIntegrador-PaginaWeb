@@ -45,3 +45,19 @@
     background-color: #007ea7;
 }
 
+.subventanas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.subventana {
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

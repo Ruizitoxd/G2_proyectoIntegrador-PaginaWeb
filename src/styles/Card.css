@@ -8,13 +8,18 @@
     overflow-x: auto;
 }
 
+
 .card-containers > * {
     flex: 1;
     min-width: 250px;
     max-width: 350px;
-    height: 90px;
     box-sizing: border-box;
 }
+
+.card-text {
+    margin-left: 70px; 
+}
+
 
 .card-link {
     color: inherit;
@@ -25,7 +30,9 @@
     align-items: center;
     justify-content: space-around;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 25px;
 }
+
 
 img {
     height: 70px;

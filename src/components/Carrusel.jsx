@@ -35,15 +35,20 @@ const slides = [
 const Carrusel = () => {
     const [index, setIndex] = useState(0);
     const [direction, setDirection] = useState(1);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const nextSlide = () => {
+        if (isAnimating) return;
         setDirection(1);
         setIndex((prev) => (prev + 1) % slides.length);
+        setIsAnimating(true);
     };
 
     const prevSlide = () => {
+        if (isAnimating) return;
         setDirection(-1);
         setIndex((prev) => (prev - 1 + slides.length) % slides.length);
+        setIsAnimating(true);
     };
 
     const variants = {
@@ -66,7 +71,11 @@ const Carrusel = () => {
 
     return (
         <div className="carousel-container">
-            <button className="arrow left" onClick={prevSlide}>
+            <button
+                className="arrow left"
+                onClick={prevSlide}
+                disabled={isAnimating}
+            >
                 ❮
             </button>
 
@@ -84,6 +93,7 @@ const Carrusel = () => {
                             duration: 0.8,
                             ease: 'easeInOut',
                         }}
+                        onAnimationComplete={() => setIsAnimating(false)}
                     >
                         <div className="carousel-text">
                             <div>
@@ -103,7 +113,11 @@ const Carrusel = () => {
                 </AnimatePresence>
             </div>
 
-            <button className="arrow right" onClick={nextSlide}>
+            <button
+                className="arrow right"
+                onClick={nextSlide}
+                disabled={isAnimating}
+            >
                 ❯
             </button>
         </div>

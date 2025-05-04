@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tabla from '../components/Tabla';
 import { useFetch } from '../data/useFetch';
 import { CardBody2 } from '../components/Card';
 import Suelo from '../Images/water-waves.png';
+import { useTodosConglomerados } from '../data/useTodosConglomerados';
+import { useSuelos } from '../data/useSuelos';
 import '../styles/Tabla.css';
 
 const columns = [
@@ -18,54 +20,72 @@ const columns = [
 ];
 
 function App() {
-    const { data, loading } = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/suelo/obtener-todos-suelo'
+    const { data: totalSuelos, loading: loadingTotal } = useFetch(
+        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/suelo/obtener-cantidad-suelo'
     );
 
-    if (loading || !data || data.length === 0) {
+    const [selectedConglomerado, setSelectedConglomerado] = useState('');
+    const { conglomerados, loadingConglomerados } = useTodosConglomerados();
+
+    const [selectedSubparcela, setSelectedSubparcela] = useState('Todas');
+
+    const { suelo, loading } = useSuelos(
+        selectedConglomerado,
+        selectedSubparcela
+    );
+
+    if (loading) {
         return <p className="loading">Cargando datos...</p>;
     }
-
-    const datosSuelos = data.map((item) => ({
-        Id: item.id,
-        Carbono: item.carbono,
-        Color: item.color,
-        Fertilidad: item.fertilidad,
-        Observaciones: item.observaciones,
-    }));
 
     return (
         <>
             <div className="card-containers">
-                <CardBody2
-                    title="Muestras de suelos"
-                    text="Número de Suelos"
-                    className="card-link card-dos"
-                    img={Suelo}
-                />
-
+                {!loadingTotal && totalSuelos && (
+                    <CardBody2
+                        title="Muestras de suelos"
+                        text={String(totalSuelos.total_suelos)}
+                        className="card-link card-dos"
+                        img={Suelo}
+                    />
+                )}
+                
                 <label className="input-group select-dos">
                     <span>Conglomerados</span>
-                    <select>
+                    <select
+                        value={selectedConglomerado}
+                        onChange={(e) =>
+                            setSelectedConglomerado(e.target.value)
+                        }
+                    >
                         <option value="">Todos</option>
+                        {!loadingConglomerados &&
+                            conglomerados?.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                    {item.id}
+                                </option>
+                            ))}
                     </select>
                 </label>
 
                 <label className="input-group select-dos">
                     <span>Sub-Parcela</span>
-                    <select>
-                        <option value={'Todas'}>Todas</option>
-                        <option value={'1'}>1</option>
-                        <option value={'2'}>2</option>
-                        <option value={'3'}>3</option>
-                        <option value={'4'}>4</option>
-                        <option value={'5'}>5</option>
+                    <select
+                        value={selectedSubparcela}
+                        onChange={(e) => setSelectedSubparcela(e.target.value)}
+                    >
+                        <option value="Todas">Todas</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                 </label>
             </div>
 
             <div className="App">
-                <Tabla columns={columns} data={datosSuelos} />
+                <Tabla columns={columns} data={suelo} />
             </div>
         </>
     );

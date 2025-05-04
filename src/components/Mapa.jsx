@@ -7,11 +7,12 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
-import { conglomerados } from '../data/conglomerados';
+import { useConglomerados } from '../data/useConglomerados.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Mapa.css';
 import SliderFilter from './SliderFilter';
+import ChangeView from './ChangeView.jsx';
 
 export default function Mapa() {
     const tileStyles = {
@@ -31,7 +32,16 @@ export default function Mapa() {
     };
 
     const [selectedStyle, setSelectedStyle] = useState('OpenStreetMap');
+    // Agrega esto arriba
+    const [region, setRegion] = useState('');
+    const [posEstrato, setPosEstrato] = useState('');
 
+    const conglomerados = useConglomerados(region, posEstrato);
+
+    const colorRandom = () => {
+        const colores = ['purple', 'orange', 'red', 'blue', 'green', 'yellow'];
+        return colores[Math.floor(Math.random() * colores.length)];
+    };
     return (
         <div className="map-container">
             {/* Botón que abre el offcanvas de filtros */}
@@ -52,6 +62,17 @@ export default function Mapa() {
                 style={{ height: '80vh', width: '100%' }}
                 zoomControl={false}
             >
+                <ChangeView
+                    center={
+                        conglomerados?.[0]
+                            ? [
+                                  conglomerados[0].latitud,
+                                  conglomerados[0].longitud,
+                              ]
+                            : [7.111, -73.05]
+                    }
+                    zoom={16}
+                />
                 {/* Establece el estilo del mapa */}
                 <TileLayer
                     url={tileStyles[selectedStyle].url}
@@ -65,15 +86,37 @@ export default function Mapa() {
                 {conglomerados.map((item) => (
                     <Circle
                         key={item.id}
-                        center={[item.lat, item.lng]}
-                        radius={item.radio}
+                        center={[item.latitud, item.longitud]}
+                        radius={160}
                         pathOptions={{
-                            color: item.color,
+                            color: colorRandom(),
                             fillOpacity: 0.4,
-                            fillColor: item.color,
+                            fillColor: colorRandom(),
                         }}
                     >
-                        <Popup>{item.nombre}</Popup>
+                        <Popup>
+                            <div>
+                                <p>
+                                    <strong>id:</strong> {item.id}
+                                </p>
+                                <p>
+                                    <strong>región:</strong> {item.region}
+                                </p>
+                                <p>
+                                    <strong>latitud:</strong> {item.latitud}
+                                </p>
+                                <p>
+                                    <strong>longitud:</strong> {item.longitud}
+                                </p>
+                                <p>
+                                    <strong>estrato:</strong> {item.posEstrato}
+                                </p>
+                                <p>
+                                    <strong>observaciones:</strong>{' '}
+                                    {item.observaciones}
+                                </p>
+                            </div>
+                        </Popup>
                     </Circle>
                 ))}
             </MapContainer>
@@ -117,9 +160,17 @@ export default function Mapa() {
                                 id="selectRegion"
                                 className="form-select shadow-sm"
                                 style={{ maxWidth: '250px' }}
+                                value={region}
+                                onChange={(e) => setRegion(e.target.value)}
                             >
                                 <option value="">Seleccionar región</option>
-                                <option value="">Amazonas</option>
+                                <option value="Amazonas">Amazonas</option>
+                                <option value="Andina">Andina</option>
+                                <option value="Pacifica">Pacífica</option>
+                                <option value="Caribe">Caribe</option>
+                                <option value="Insular,">Insular</option>
+                                <option value="Orinoquia">Orinoquía</option>
+                                {/* Agrega más regiones si es necesario */}
                             </select>
                         </div>
 
@@ -133,15 +184,17 @@ export default function Mapa() {
                                 Post Estrato:
                             </label>
                             <select
-                                id="selectRegion"
+                                id="selectPosEstrato"
                                 className="form-select shadow-sm"
                                 style={{ maxWidth: '250px' }}
+                                value={posEstrato}
+                                onChange={(e) => setPosEstrato(e.target.value)}
                             >
                                 <option value="">
                                     Seleccionar post-estrato
                                 </option>
-                                <option value="">Bosque</option>
-                                <option value="">No Bosque</option>
+                                <option value="Bosque">Bosque</option>
+                                <option value="No Bosque">No Bosque</option>
                             </select>
                         </div>
 
