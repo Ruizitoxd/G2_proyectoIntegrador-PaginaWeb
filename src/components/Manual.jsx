@@ -10,6 +10,12 @@ const seccionesIntroduccion = [
         descripcion:
             'La secuencia de actividades del trabajo de campo está en función de las secciones que conforman el Manual de Campo del IFN (Figura 1).',
         pdfUrl: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=16',
+        subventanas: [
+            {
+                nombre: 'Trabajo de campo ifn',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=17',
+            },
+        ],
     },
     {
         id: 'Introduccion2',
@@ -17,6 +23,12 @@ const seccionesIntroduccion = [
         descripcion:
             'Cada unidad de muestreo consiste en un conglomerado de 3.535 m2...',
         pdfUrl: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=18',
+        subventanas: [
+            {
+                nombre: 'En cada subparcela se medirán las siguientes cuatro (4) categorías de tamaño',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=19',
+            },
+        ],
     },
     {
         id: 'Introduccion3',
@@ -24,6 +36,12 @@ const seccionesIntroduccion = [
         descripcion:
             'Se hace necesario seguir las siguientes recomendaciones generales...',
         pdfUrl: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=20',
+        subventanas: [
+            {
+                nombre: '2.1 Consideraciones especiales',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=19',
+            },
+        ],
     },
 ];
 
@@ -35,6 +53,12 @@ const seccionesConglomerados = [
         descripcion:
             'Se sugiere que la brigada forestal esté conformada como mínimo por: un jefe de brigada, un botánico, un auxiliar técnico y dos coinvestigadores. Claro está que, según la zona, es posible que la conformación cambie.',
         pdfUrl: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=24',
+        subventanas: [
+            {
+                nombre: 'Técnico auxiliar - Botánico - Coinvestigadores',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=25',
+            },
+        ],
     },
     {
         id: 'Conglomerado2',
@@ -42,6 +66,12 @@ const seccionesConglomerados = [
         descripcion:
             'En el marco del IFN, los equipos empleados para el posicionamiento y localización de los centros de conglomerados corresponden fundamentalmente a navegadores GPS. Estos equipos permiten alcanzar errores del orden de los 2-3 m de la posición real, lo que implica el uso de otras herramientas que permitan reducir estos errores y no propagarlos a las demás posiciones o puntos del conglomerado',
         pdfUrl: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=26',
+        subventanas: [
+            {
+                nombre: 'Estrategias de aproximación',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=27',
+            },
+        ],
     },
     {
         id: 'Conglomerado3',
@@ -49,6 +79,12 @@ const seccionesConglomerados = [
         descripcion:
             'En el centro de SPF 1 se sitúa la brújula. A partir de ese punto se localiza el Norte (360° es 0°) hacia SPF 2. Se debe desplazar una persona con cinta métrica realizando estacionamientos a una distancia aproximada a 20m hasta llegar a 80 m para fijar el centro de la subparcela (Figura 5). Igualmente para SPF 3, localizada al Oriente (Azimut = 90°), SPF 4, al Sur (Azimut = 180°) y finalmente, SPF 5 al Occidente (Azimut = 270°).',
         pdfUrl: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=28',
+        subventanas: [
+            {
+                nombre: 'Obstáculos',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=29',
+            },
+        ],
     },
     {
         id: 'Conglomerado4',
@@ -56,6 +92,20 @@ const seccionesConglomerados = [
         descripcion:
             'Se debe usar el clinómetro para corregir las distancias por segmentos o tramos, para medir la pendiente desde el lugar donde se encuentra la brújula en dirección al punto donde se desea medir la distancia.',
         pdfUrl: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=30',
+        subventanas: [
+            {
+                nombre: 'Ocorrección de distancias por pendientes',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=31',
+            },
+            {
+                nombre: 'Cuadro 1. Distancias (m) corregidas según pendiente',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=32',
+            },
+            {
+                nombre: 'Cuadro 1.1 Distancias (m) corregidas según pendiente',
+                url: 'https://visionamazonia.minambiente.gov.co/content/uploads/2023/04/Manual_IFN_Colombia_v4.pdf#page=33',
+            },
+        ],
     },
     {
         id: 'Conglomerado5',
@@ -646,14 +696,16 @@ const Manual = ({ onSeleccionarPDF }) => {
         <div className="manual-container">
             <h4 className="mb-3 titulo-manual">Manual de Consulta</h4>
 
-            {/* Sección Introducción */}
+            {/* Sección 0 - Introduccion */}
             <h5 className="seccion-manual">Sección 0 - Introducción</h5>
             <Accordion
                 activeKey={
-                    activeSection.tipo === 'intro' ? activeSection.key : ''
+                    activeSection.tipo === 'mediciones0'
+                        ? activeSection.key
+                        : ''
                 }
                 onSelect={(key) =>
-                    handleSelect(key, 'intro', seccionesIntroduccion)
+                    handleSelect(key, 'mediciones0', seccionesIntroduccion)
                 }
             >
                 {seccionesIntroduccion.map((sec, index) => (
@@ -661,7 +713,7 @@ const Manual = ({ onSeleccionarPDF }) => {
                         <Accordion.Header>
                             <div className="accordion-header-custom">
                                 <span>{sec.titulo}</span>
-                                {activeSection.tipo === 'intro' &&
+                                {activeSection.tipo === 'mediciones0' &&
                                     activeSection.key === index.toString() && (
                                         <button
                                             className="boton-ver"
@@ -680,6 +732,31 @@ const Manual = ({ onSeleccionarPDF }) => {
                         </Accordion.Header>
                         <Accordion.Body>
                             <p>{sec.descripcion}</p>
+
+                            {/* Subventanas renderizadas solo si está activa esta sección */}
+                            {activeSection.tipo === 'mediciones0' &&
+                                activeSection.key === index.toString() &&
+                                sec.subventanas && (
+                                    <div className="subventanas-container">
+                                        {sec.subventanas.map((sub, i) => (
+                                            <div className="subventana" key={i}>
+                                                <h6>{sub.nombre}</h6>
+                                                <button
+                                                    className="boton-ver"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        onSeleccionarPDF(
+                                                            sub.url,
+                                                            `${sec.id}-${i}`
+                                                        );
+                                                    }}
+                                                >
+                                                    Ver
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                         </Accordion.Body>
                     </Accordion.Item>
                 ))}
