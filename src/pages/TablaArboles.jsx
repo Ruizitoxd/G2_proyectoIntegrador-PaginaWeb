@@ -4,7 +4,7 @@ import { useTodosConglomerados } from '../data/useTodosConglomerados';
 import { useFetch } from '../data/useFetch';
 import { CardBody2 } from '../components/Card';
 import Arbol from '../Images/tree-icon.png';
-import Tabla from '../components/Tabla';
+import Tabla from '../components/tabla';
 import '../styles/Tabla.css';
 
 const columns = [
