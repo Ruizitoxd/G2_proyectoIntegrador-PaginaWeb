@@ -11,6 +11,7 @@ import TablaColeccionBotanica from './pages/TablaColeccionBotanica';
 import ManualDeConsulta from './pages/ManualDeConsulta';
 import Login from './pages/Login';
 
+
 function AppContent() {
     const location = useLocation();
     const isLoginPage = location.pathname === "/Login";
