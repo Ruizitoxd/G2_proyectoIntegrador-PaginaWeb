@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Tabla from '../components/tabla';
+import Tabla from '../components/Tabla';
 import { useFetch } from '../data/useFetch';
 import { CardBody2 } from '../components/Card';
 import Hojas from '../Images/leaf.png';
