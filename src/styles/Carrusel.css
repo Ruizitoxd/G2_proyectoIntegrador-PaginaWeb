@@ -53,7 +53,7 @@
     width: 50%;
     height: 100%;
     overflow: hidden;
-    display: flex;
+    display: cover;
     align-items: center;
     justify-content: center;
 }
@@ -92,6 +92,41 @@
     right: 20px;
 }
 
+/* Primero: adaptación para pantallas medianas */
+@media screen and (max-width: 1400px) {
+    .carousel-text {
+        width: 55%;
+        padding: 40px;
+        font-size: 1.2rem;
+    }
+
+    .carousel-subtitle {
+        font-size: 1.8rem;
+    }
+
+    .carousel-image {
+        width: 45%;
+    }
+
+    .carousel-image img {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .arrow {
+        font-size: 4rem;
+        padding: 4px 10px;
+    }
+
+    .arrow.left {
+        left: 10px;
+    }
+
+    .arrow.right {
+        right: 10px;
+    }
+}
+
 /* RESPONSIVE */
 @media screen and (max-width: 1024px) {
     .carousel-text {
@@ -100,7 +135,7 @@
     }
 
     .carousel-subtitle {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 }
 

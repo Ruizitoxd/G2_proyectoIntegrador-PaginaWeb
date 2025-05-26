@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
 import Inicio from './pages/Inicio';
 import MapaConglomerados from './pages/MapaConglomerados';
 import TablaArboles from './pages/TablaArboles';

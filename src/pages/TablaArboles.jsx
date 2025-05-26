@@ -61,8 +61,6 @@ function App() {
         return <p className="loading">Cargando datos...</p>;
     }
 
- 
-
     return (
         <>
             <div className="card-containers">
