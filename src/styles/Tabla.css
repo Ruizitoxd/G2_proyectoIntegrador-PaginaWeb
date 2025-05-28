@@ -20,3 +20,20 @@
 .data-table-wrapper {
     padding: 16px;
 }
+
+.table-card {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 500px; /* O lo que necesites */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  background-color: white; /* si quieres que luzca como tarjeta */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 1000vh;
+}
+
+.data-table-wrapper {
+  min-width: 100%; /* Asegura que el scroll horizontal se active si es necesario */
+}

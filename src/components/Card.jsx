@@ -2,12 +2,14 @@ import React from 'react';
 
 import '../styles/Card.css';
 
-export default function Card(props) {
-    const { children } = props;
+export default function Card() {
+
     return (
-        <div className="card">
-            <div className="card-body">{children}</div>
-        </div>
+            <div className="card">
+    <div className="card-body">
+        This is some text within a card body.
+    </div>
+    </div>
     );
 }
 

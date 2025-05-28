@@ -1,0 +1,20 @@
+.custom-upload {
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.boton-verde {
+  background-color: green;
+}
+
+.boton-azul {
+  background-color: blue;
+}
+
+.boton-suelo {
+    background-color: #99532c;
+}
