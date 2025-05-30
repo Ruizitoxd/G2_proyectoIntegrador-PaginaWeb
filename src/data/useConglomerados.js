@@ -7,7 +7,7 @@ export function useConglomerados(region, posEstrato) {
 
     // Construcción de la URL basada en los filtros seleccionados
     useEffect(() => {
-        const base = 'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/conglomerado';
+        const base = 'https://back-end-inventarionacional.onrender.com/api/conglomerado';
 
         if (region && posEstrato) {
             // Si hay región y postEstrato
@@ -32,9 +32,8 @@ export function useConglomerados(region, posEstrato) {
             id: item.id,
             latitud: parseFloat(item.latitud),
             longitud: parseFloat(item.longitud),
-            observaciones: item.observaciones,
-            region: item.region,
-            posEstrato: item.posEstrato,
+            region: item.nombre,
+            posEstrato: item.postestrato,
         }));
     }, [data]);
 

@@ -142,10 +142,6 @@ export default function Mapa() {
                                         <strong>Estrato:</strong>{' '}
                                         {item.posEstrato}
                                     </p>
-                                    <p>
-                                        <strong>Observaciones:</strong>{' '}
-                                        {item.observaciones}
-                                    </p>
                                 </div>
                             </Popup>
                         </Circle>

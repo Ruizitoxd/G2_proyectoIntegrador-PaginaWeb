@@ -5,7 +5,7 @@ export function useColeccion(conglomeradoId, subparcela) {
     const [url, setUrl] = useState('');
 
     useEffect(() => {
-        const base = 'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/ColeccionBotanica';
+        const base = 'https://back-end-inventarionacional.onrender.com/api/ColeccionBotanica';
 
         if (conglomeradoId && subparcela && subparcela !== 'Todas') {
             setUrl(`${base}/obtener-subParcela-ColeccionBotanico/${conglomeradoId}/${subparcela}`);
@@ -23,10 +23,9 @@ export function useColeccion(conglomeradoId, subparcela) {
 
         return data.map((item) => ({
             Id: item.id,
-            Tamaño: item.tamano,
-            Nombre_Comun: item.nombre_comun,
-            Nombre_Cientifico: item.nombre_cientifico,
-            Observaciones: item.observaciones_individuo,
+            Tamaño: item.tamaño,
+            Nombre_Comun: item.nombrecomun,
+            Nombre_Cientifico: item.especiecoleccion,
             Foto: item.foto,
         }));
     }, [data]);

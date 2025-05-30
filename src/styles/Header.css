@@ -1,64 +1,117 @@
+/* Fondo con gradiente para el header */
 .navbar {
     background: linear-gradient(to right, #0f4792, #0097b2, #57cdd9, #0097b2);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
 }
 
+/* Logo y título */
 .navbar-brand {
     color: white !important;
+    display: flex;
+    align-items: center;
 }
 
-.navbar img {
+.navbar-brand img {
     width: 80px;
     height: auto;
-    margin-right: 3%;
+    margin-right: 15px;
 }
 
 .montserrat-title-font {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5em !important;
-    font-optical-sizing: auto;
+    font-size: 1.5em;
     font-weight: 700;
     font-style: normal;
 }
 
+/* Contenedor de usuario */
 .navbar-user-container {
     display: flex;
-    flex-direction: column;
-    color: white !important;
-    align-items: stretch;
+    flex-direction: column; /* Cambia a columna para apilar verticalmente */
+    align-items: center;
+    gap: 5px; /* Reduce el espacio entre elementos */
+    color: white;
     transition: all 0.5s ease-in-out;
 }
+.navbar-user-container .fa-circle-user {
+    margin-bottom: 5px; /* Espacio entre la imagen y el botón */
+}
 
+.login-button, .user-dropdown-btn {
+    width: fit-content; /* Ajusta el ancho al contenido */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+/* Botón de login (cuando no hay sesión iniciada) */
 .login-button {
     background: none;
     border: none;
-    color: inherit;
+    color: white;
     font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
-    padding: 0;
-
+    padding: 6px 12px;
     transition: all 0.15s ease;
+    border-radius: 5px;
 }
 
 .login-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
     transform: scale(1.05);
 }
 
-.btn {
-    color: white !important;
-    border-color: transparent !important;
-
-    transition: all 0.15s ease !important;
+/* Botón del dropdown */
+.user-dropdown-btn {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-weight: 600;
+    color: #333;
+    border: none;
 }
 
-.btn:hover {
-    transform: scale(1.05);
+/* Menú desplegable */
+.user-dropdown-menu {
+  position: absolute;
+  top: 100%; /* justo debajo del botón */
+  right: 0;
+background-color: rgba(248, 249, 250, 0.8);  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px black;
+  padding: 8px 0;
+  min-width: 200px;
+  z-index: 9999; /* para que esté por encima de todo */
+}
+
+.user-dropdown-menu .dropdown-item {
+  background-color: #f8f9fa;       /* Fondo suave */
+  color: #333;                     /* Color de texto */
+  border: 1px solid #dee2e6;       /* Borde sutil */
+  border-radius: 6px;              /* Esquinas redondeadas */
+  margin-bottom: 8px;              /* Espacio entre opciones */
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+.user-dropdown-menu .dropdown-item:hover {
+  background-color: #e0f0ff; /* O el color que prefieras */
+  color: #0b5ed7;
 }
 
 .dropdown-item:active {
-    background: #57cdd9 !important;
+    background-color: #57cdd9 !important;
 }
-
-.dropdown-menu {
-    left: auto !important;
-    right: 0 !important;
+.user-dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* Botón de cerrar sesión */
+.logout-btn {
+  color: red;
 }

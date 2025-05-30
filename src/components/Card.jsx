@@ -2,17 +2,14 @@ import React from 'react';
 
 import '../styles/Card.css';
 
-export default function Card() {
-
+export default function Card(props) {
+    const { children } = props;
     return (
-            <div className="card">
-    <div className="card-body">
-        This is some text within a card body.
-    </div>
-    </div>
+        <div className="card">
+            <div className="card-body">{children}</div>
+        </div>
     );
 }
-
 /**
  * @param {{ title: string, text?: string, subtitle?: string, className?: string, img: string }} props
  */

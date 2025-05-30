@@ -21,7 +21,7 @@ const columns = [
 
 function App() {
     const { data: totalSuelos, loading: loadingTotal } = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/suelo/obtener-cantidad-suelo'
+        'https://back-end-inventarionacional.onrender.com/api/suelo/obtener-cantidad-suelo'
     );
 
     const [selectedConglomerado, setSelectedConglomerado] = useState('');

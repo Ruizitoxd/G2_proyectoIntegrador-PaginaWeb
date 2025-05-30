@@ -6,7 +6,7 @@ export function useArboles(conglomeradoId, subparcela) {
     const [url, setUrl] = useState('');
 
     useEffect(() => {
-        const base = 'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/arbol';
+        const base = 'https://back-end-inventarionacional.onrender.com/api/arbol';
 
         if (conglomeradoId && subparcela && subparcela !== 'Todas') {
             setUrl(`${base}/obtener-subParcela-arboles/${conglomeradoId}/${subparcela}`);
@@ -22,20 +22,23 @@ export function useArboles(conglomeradoId, subparcela) {
     const arboles = useMemo(() => {
         if (!data || !Array.isArray(data)) return [];
 
-        return data.map((item) => ({
-            Id: item.id,
-            Tamaño: item.tamano,
-            Condicion: item.condicion,
-            Azimut: item.azimut,
-            Distancia: item.distancia,
-            Numero_fustes: item.numero_fustes,
-            Diametro: item.diametro,
-            Altura_fuste: item.altura_fuste,
-            Forma_fuste: item.forma_fuste,
-            Diametro_fuste: item.diametro_fuste,
-            Altura_total: item.altura_total,
-            Diametro_copa: item.diametro_copa,
-        }));
+return data.map((item) => ({
+    id: item.id,
+    tamano: item.tamano,
+    condicion: item.condicion,
+    azimut: item.azimut,
+    distancia: item.distancia,
+    numeroFustes: item.numero_fustes,
+    diametro: item.diametro,
+    alturaFuste: item.altura_fuste,
+    formaFuste: item.forma_fuste,
+    diametroFuste: item.diametro_fuste,
+    alturaTotal: item.altura_total,
+    diametroCopa: item.diametro_copa,
+    nombreComun: item.nombrecomun,
+    especie: item.especie
+}));
+
     }, [data]);
 
     return { arboles, loading };
