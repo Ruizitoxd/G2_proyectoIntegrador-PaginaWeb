@@ -24,12 +24,22 @@ const customStyles = {
  */
 export default function Tabla({ columns, data }) {
     return (
-        <div className="table-card">
+        <div
+            className="table-card"
+            style={{
+                overflowX: 'auto',
+                overflowY: 'auto',
+                maxHeight: '500px',
+                width: '100%',
+            }}
+        >
             <div className="data-table-wrapper">
                 <DataTable
                     columns={columns}
                     data={data}
                     pagination
+                    paginationPerPage={10}
+                    paginationRowsPerPageOptions={[5, 10, 25, 50]}
                     customStyles={customStyles}
                 />
             </div>

@@ -8,43 +8,23 @@ import Tabla from '../components/Tabla';
 import '../styles/Tabla.css';
 
 const columns = [
-    { name: 'Id', selector: (row) => row.Id, sortable: true },
-    { name: 'Tamaño', selector: (row) => row.Tamaño, sortable: true },
-    { name: 'Condicion', selector: (row) => row.Condicion, sortable: true },
-    { name: 'Azimut', selector: (row) => row.Azimut, sortable: true },
-    { name: 'Distancia', selector: (row) => row.Distancia, sortable: true },
-    {
-        name: 'Numero fustes',
-        selector: (row) => row.Numero_fustes,
-        sortable: true,
-    },
-    { name: 'Diametro', selector: (row) => row.Diametro, sortable: true },
-    {
-        name: 'Altura fuste',
-        selector: (row) => row.Altura_fuste,
-        sortable: true,
-    },
-    { name: 'Forma fuste', selector: (row) => row.Forma_fuste, sortable: true },
-    {
-        name: 'Diametro fuste',
-        selector: (row) => row.Diametro_fuste,
-        sortable: true,
-    },
-    {
-        name: 'Altura total',
-        selector: (row) => row.Altura_total,
-        sortable: true,
-    },
-    {
-        name: 'Diametro copa',
-        selector: (row) => row.Diametro_copa,
-        sortable: true,
-    },
+  { name: 'Id', selector: row => row.id, sortable: true },
+  { name: 'Tamaño', selector: row => row.tamano, sortable: true },
+  { name: 'Condicion', selector: row => row.condicion, sortable: true },
+  { name: 'Azimut', selector: row => row.azimut, sortable: true },
+  { name: 'Distancia', selector: row => row.distancia, sortable: true },
+  { name: 'Numero fustes', selector: row => row.numeroFustes, sortable: true },
+  { name: 'Diametro', selector: row => row.diametro, sortable: true },
+  { name: 'Altura fuste', selector: row => row.alturaFuste, sortable: true },
+  { name: 'Forma fuste', selector: row => row.formaFuste, sortable: true },
+  { name: 'Diametro fuste', selector: row => row.diametroFuste, sortable: true },
+  { name: 'Altura total', selector: row => row.alturaTotal, sortable: true },
+  { name: 'Diametro copa', selector: row => row.diametroCopa, sortable: true },
 ];
 
 function App() {
     const { data: totalArboles, loading: loadingTotal } = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/arbol/obtener-cantidad-arboles'
+        'https://back-end-inventarionacional.onrender.com/api/arbol/obtener-cantidad-arboles'
     );
 
     const [selectedConglomerado, setSelectedConglomerado] = useState('');

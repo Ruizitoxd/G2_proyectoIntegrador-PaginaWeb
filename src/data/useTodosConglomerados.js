@@ -3,7 +3,7 @@ import { useFetch } from './useFetch';
 
 export function useTodosConglomerados() {
     const { data, loading } = useFetch(
-        'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/conglomerado/ObtenerTodosIdConglomerados'
+        'https://back-end-inventarionacional.onrender.com/api/conglomerado/ObtenerTodosIdConglomerados'
     );
 
     return {

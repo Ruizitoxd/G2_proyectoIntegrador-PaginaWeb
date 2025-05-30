@@ -10,6 +10,16 @@ import TablaColeccionBotanica from './pages/TablaColeccionBotanica';
 import ManualDeConsulta from './pages/ManualDeConsulta';
 import Login from './pages/Login';
 
+
+
+
+
+import DashboardApp from './pages/Dashboard';
+
+// En tus rutas:
+
+
+
 function AppContent() {
     const location = useLocation();
     const isLoginPage = location.pathname === "/Login";
@@ -19,7 +29,7 @@ function AppContent() {
             {/* Decidir si mostrar el navbar y el header o no */}
             {!isLoginPage && <Header />}
             {!isLoginPage && <Navbar />}
-
+             
             <Routes>
                 <Route path="/" element={<Inicio />} />
                 <Route path="/MapaConglomerados" element={<MapaConglomerados />} />
@@ -28,6 +38,8 @@ function AppContent() {
                 <Route path='/TablaColeccionBotanica' element={<TablaColeccionBotanica />} />
                 <Route path='/ManualDeConsulta' element={<ManualDeConsulta />} />
                 <Route path='/Login' element={<Login />} />
+                <Route path='/Excel/*' element ={<DashboardApp/>}/> 
+
             </Routes>
 
             {/* Decidir si mostrar el footer o no */}

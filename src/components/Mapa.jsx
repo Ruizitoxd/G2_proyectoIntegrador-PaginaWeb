@@ -142,10 +142,6 @@ export default function Mapa() {
                                         <strong>Estrato:</strong>{' '}
                                         {item.posEstrato}
                                     </p>
-                                    <p>
-                                        <strong>Observaciones:</strong>{' '}
-                                        {item.observaciones}
-                                    </p>
                                 </div>
                             </Popup>
                         </Circle>
@@ -202,7 +198,7 @@ export default function Mapa() {
                                 <option value="Caribe">Caribe</option>
                                 <option value="Insular,">Insular</option>
                                 <option value="Orinoquia">Orinoquía</option>
-                                {/* Agrega más regiones si es necesario */}
+                            
                             </select>
                         </div>
 

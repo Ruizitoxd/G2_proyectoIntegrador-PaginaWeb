@@ -10,7 +10,6 @@ export default function Card(props) {
         </div>
     );
 }
-
 /**
  * @param {{ title: string, text?: string, subtitle?: string, className?: string, img: string }} props
  */

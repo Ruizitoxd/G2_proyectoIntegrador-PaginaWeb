@@ -5,7 +5,7 @@ export function useSuelos(conglomeradoId, subparcela) {
     const [url, setUrl] = useState('');
 
     useEffect(() => {
-        const base = 'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/suelo';
+        const base = 'https://back-end-inventarionacional.onrender.com/api/suelo';
 
         if (conglomeradoId && subparcela && subparcela !== 'Todas') {
             setUrl(`${base}/obtener-subparcela-suelo/${conglomeradoId}/${subparcela}`);

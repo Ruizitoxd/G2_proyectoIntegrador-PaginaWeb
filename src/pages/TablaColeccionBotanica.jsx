@@ -20,18 +20,13 @@ const columns = [
         selector: (row) => row.Nombre_Cientifico,
         sortable: true,
     },
-    {
-        name: 'Observaciones',
-        selector: (row) => row.Observaciones,
-        sortable: true,
-    },
     { name: 'Foto', selector: (row) => row.Foto, sortable: true },
 ];
 
 function App() {
 
         const { data: totalColeccion, loading: loadingTotal } = useFetch(
-            'https://back-end-inventarionacional-production-3ab1.up.railway.app/api/ColeccionBotanica/obtener-cantidad-ColeccionBotanico'
+            'https://back-end-inventarionacional.onrender.com/api/ColeccionBotanica/obtener-cantidad-ColeccionBotanico'
         );
     
     const [selectedConglomerado, setSelectedConglomerado] = useState('');
