@@ -1,100 +1,106 @@
-import UploadExcel from "../components/subirExcel";
-import { useState } from "react";
-import Tabla from "../components/Tabla";
+import UploadExcel from '../components/subirExcel';
+import { useState } from 'react';
+import Tabla from '../components/Tabla';
 
-function CargarConglomerado() {
-  const [conglomerados, setConglomerados] = useState([]);
-  const [subparcelas, setSubparcelas] = useState([]);
-  const [columns, setColumns] = useState([]);
-  const [mostrarSubparcelas, setMostrarSubparcelas] = useState(false);
+function CargarColeccionBotanica() {
+    const [data, setData] = useState([]);
+    const [columns, setColumns] = useState([]);
+    const [enviando, setEnviando] = useState(false);
+    const [mensaje, setMensaje] = useState('');
 
-  const encabezadosEsperados = ["id", "latitud", "longitud", "observaciones", "region", "posEstrato"];
+    const encabezadosEsperados = [
+        'nombrecomun',
+        'foto',
+        'idarbol',
+        'especiecoleccion',
+        'tamano',
+    ];
 
-  const generarSubparcelas = (conglomerados) => {
-    const desplazamiento = 80;
-    const subparcelas = [];
+    const handleData = (jsonData) => {
+        setData(jsonData);
+        setMensaje('');
 
-    conglomerados.forEach((cong) => {
-      const { id, latitud, longitud } = cong;
-      const lat = parseFloat(latitud);
-      const lon = parseFloat(longitud);
+        // Generar columnas dinámicamente desde los encabezados del archivo
+        if (jsonData.length > 0) {
+            const columnasGeneradas = Object.keys(jsonData[0]).map((key) => ({
+                name: key,
+                selector: (row) => row[key],
+                sortable: true,
+            }));
+            setColumns(columnasGeneradas);
+        }
+    };
 
-      for (let i = 1; i <= 5; i++) {
-        let nuevaLat = lat;
-        let nuevaLon = lon;
+    const enviarDatos = async () => {
+        setEnviando(true);
+        setMensaje('');
 
-        if (i === 2) nuevaLon += desplazamiento;
-        else if (i === 3) nuevaLat += desplazamiento;
-        else if (i === 4) nuevaLon -= desplazamiento;
-        else if (i === 5) nuevaLat -= desplazamiento;
+        try {
+            const response = await fetch(
+                'https://back-end-inventarionacional.onrender.com/api/ColeccionBotanica/agregar-ColeccionBotanico',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
 
-        subparcelas.push({
-          id: `${id}-${i}`,
-          latitud: nuevaLat.toFixed(6),
-          longitud: nuevaLon.toFixed(6),
-          numero: i,
-          idConglomerado: id
-        });
-      }
-    });
+            if (response.ok) {
+                setMensaje('🌳 Datos enviados correctamente.');
+                setData([]);
+                setColumns([]);
+            } else {
+                const errorData = await response.json();
+                setMensaje(
+                    `❌ Error al enviar: ${
+                        errorData.message || response.statusText
+                    }`
+                );
+            }
+        } catch (error) {
+            setMensaje('❌ Error de red al enviar los datos.');
+        } finally {
+            setEnviando(false);
+        }
+    };
 
-    return subparcelas;
-  };
+    return (
+        <div style={{ padding: '20px' }}>
+            <h2>Subir datos de la coleccion Botanica</h2>
+            <UploadExcel
+                buttonClass="boton-coleccion"
+                expectedHeaders={encabezadosEsperados}
+                onData={handleData}
+            />
 
-  const handleData = (jsonData) => {
-    setConglomerados(jsonData);
+            {data.length > 0 && columns.length > 0 && (
+                <>
+                    <Tabla columns={columns} data={data} />
+                    <button
+                        onClick={enviarDatos}
+                        className="boton-coleccion"
+                        disabled={enviando}
+                        style={{ marginTop: '20px' }}
+                    >
+                        {enviando ? 'Enviando...' : 'Enviar Datos al Servidor'}
+                    </button>
+                </>
+            )}
 
-    const subparcelasGeneradas = generarSubparcelas(jsonData);
-    setSubparcelas(subparcelasGeneradas);
-
-    // Definir columnas para la tabla visible actual
-    const columnasGeneradas = Object.keys(jsonData[0]).map((key) => ({
-      name: key,
-      selector: (row) => row[key],
-      sortable: true,
-    }));
-    setColumns(columnasGeneradas);
-    setMostrarSubparcelas(false); // Por defecto mostrar conglomerados
-  };
-
-  const toggleTabla = () => {
-    const nuevaVista = !mostrarSubparcelas;
-    setMostrarSubparcelas(nuevaVista);
-
-    const dataReferencia = nuevaVista ? subparcelas : conglomerados;
-
-    if (dataReferencia.length > 0) {
-      const columnasNuevas = Object.keys(dataReferencia[0]).map((key) => ({
-        name: key,
-        selector: (row) => row[key],
-        sortable: true,
-      }));
-      setColumns(columnasNuevas);
-    }
-  };
-
-  const datosAMostrar = mostrarSubparcelas ? subparcelas : conglomerados;
-
-  return (
-    <div style={{ padding: '20px' }}>
-      <h2>Subir datos de los Conglomerados</h2>
-      <UploadExcel
-        buttonClass="boton-azul"
-        expectedHeaders={encabezadosEsperados}
-        onData={handleData}
-      />
-
-      {conglomerados.length > 0 && (
-        <button onClick={toggleTabla} style={{ margin: '10px 0' }}>
-          {mostrarSubparcelas ? "Ver Conglomerados" : "Ver Subparcelas"}
-        </button>
-      )}
-
-      {datosAMostrar.length > 0 && columns.length > 0 && (
-        <Tabla columns={columns} data={datosAMostrar} />
-      )}
-    </div>
-  );
+            {mensaje && (
+                <p
+                    style={{
+                        marginTop: '10px',
+                        color: mensaje.startsWith('❌') ? 'red' : 'green',
+                    }}
+                >
+                    {mensaje}
+                </p>
+            )}
+        </div>
+    );
 }
 
-export default CargarConglomerado;
+export default CargarColeccionBotanica;

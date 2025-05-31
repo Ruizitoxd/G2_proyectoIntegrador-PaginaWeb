@@ -7,14 +7,89 @@
   display: inline-block;
 }
 
-.boton-verde {
-  background-color: green;
-}
 
-.boton-azul {
-  background-color: blue;
-}
 
+/**/
 .boton-suelo {
-    background-color: #99532c;
+  background-color: #99532c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-suelo:hover {
+  background-color: #9a6447;
+}
+
+.boton-suelo:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/**/
+.boton-coleccion {
+  background-color: #97992c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-coleccion:hover {
+  background-color: #a8a96e;
+}
+
+.boton-coleccion:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/**/
+
+.boton-azul  {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-azul:hover {
+  background-color: rgb(56, 56, 255);
+}
+
+.boton-azul:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/**/
+.boton-verde  {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-verde:hover {
+  background-color: rgb(71, 120, 71);
+}
+
+.boton-verde:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
