@@ -198,7 +198,6 @@ export default function Mapa() {
                                 <option value="Caribe">Caribe</option>
                                 <option value="Insular,">Insular</option>
                                 <option value="Orinoquia">Orinoquía</option>
-                            
                             </select>
                         </div>
 
