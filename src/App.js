@@ -9,16 +9,8 @@ import TablaSuelos from './pages/TablaSuelos';
 import TablaColeccionBotanica from './pages/TablaColeccionBotanica';
 import ManualDeConsulta from './pages/ManualDeConsulta';
 import Login from './pages/Login';
-
-
-
-
-
 import DashboardApp from './pages/Dashboard';
-
-// En tus rutas:
-
-
+import DashboardReportes from './pages/DashboardReportes';
 
 function AppContent() {
     const location = useLocation();
@@ -29,7 +21,7 @@ function AppContent() {
             {/* Decidir si mostrar el navbar y el header o no */}
             {!isLoginPage && <Header />}
             {!isLoginPage && <Navbar />}
-             
+
             <Routes>
                 <Route path="/" element={<Inicio />} />
                 <Route path="/MapaConglomerados" element={<MapaConglomerados />} />
@@ -38,8 +30,8 @@ function AppContent() {
                 <Route path='/TablaColeccionBotanica' element={<TablaColeccionBotanica />} />
                 <Route path='/ManualDeConsulta' element={<ManualDeConsulta />} />
                 <Route path='/Login' element={<Login />} />
-                <Route path='/Excel/*' element ={<DashboardApp/>}/> 
-
+                <Route path='/Excel/*' element={<DashboardApp />} />
+                <Route path='/Reporte/*' element={<DashboardReportes />} />
             </Routes>
 
             {/* Decidir si mostrar el footer o no */}
