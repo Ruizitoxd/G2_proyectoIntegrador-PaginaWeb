@@ -53,6 +53,38 @@ const Login = () => {
                     contraseña
                 ); //Registrar usuario
                 const uid = userCredential.user.uid; //Guardar uid del usuario nuevo
+                // Enviar UID al backend
+                try {
+                    const response = await fetch(
+                        'https://back-end-inventarionacional.onrender.com/api/coinvestigador/agregar',
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ uuid: uid }), // Enviar como 'uuid', que espera tu backend
+                        }
+                    );
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(
+                            data.error ||
+                                'Error al registrar coinvestigador en backend'
+                        );
+                    }
+
+                    console.log(
+                        'Coinvestigador registrado en el backend:',
+                        data
+                    );
+                } catch (error) {
+                    console.error(
+                        'Error al enviar el UID al backend:',
+                        error.message
+                    );
+                }
 
                 alert('Cuenta creada exitosamente. Por favor, inicia sesión.');
                 setRegistrando(false); // Cambiar a la vista de inicio de sesión

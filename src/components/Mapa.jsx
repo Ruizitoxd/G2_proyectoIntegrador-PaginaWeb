@@ -192,12 +192,12 @@ export default function Mapa() {
                                 onChange={(e) => setRegion(e.target.value)}
                             >
                                 <option value="">Seleccionar región</option>
-                                <option value="Amazonas">Amazonas</option>
-                                <option value="Andina">Andina</option>
-                                <option value="Pacifica">Pacífica</option>
+                                <option value="Amazonía">Amazonía</option>
                                 <option value="Caribe">Caribe</option>
-                                <option value="Insular,">Insular</option>
-                                <option value="Orinoquia">Orinoquía</option>
+                                <option value="Andes">Andes</option>
+                                <option value="Pacífico">Pacífico</option>
+                        
+                                <option value="Orinoquía">Orinoquía</option>
                             
                             </select>
                         </div>
