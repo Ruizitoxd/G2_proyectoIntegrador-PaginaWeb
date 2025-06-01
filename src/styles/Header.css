@@ -41,7 +41,8 @@
     margin-bottom: 5px; /* Espacio entre la imagen y el botón */
 }
 
-.login-button, .user-dropdown-btn {
+.login-button,
+.user-dropdown-btn {
     width: fit-content; /* Ajusta el ancho al contenido */
     white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
@@ -53,7 +54,6 @@
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    padding: 6px 12px;
     transition: all 0.15s ease;
     border-radius: 5px;
 }
@@ -65,53 +65,69 @@
 
 /* Botón del dropdown */
 .user-dropdown-btn {
-    background-color: #f5f5f5;
+    background: transparent;
     border-radius: 8px;
-    padding: 10px 15px;
     font-weight: 600;
-    color: #333;
+    color: #ffffff;
     border: none;
 }
 
 /* Menú desplegable */
 .user-dropdown-menu {
-  position: absolute;
-  top: 100%; /* justo debajo del botón */
-  right: 0;
-background-color: rgba(248, 249, 250, 0.8);  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px black;
-  padding: 8px 0;
-  min-width: 200px;
-  z-index: 9999; /* para que esté por encima de todo */
+    position: absolute;
+    top: 100%; /* justo debajo del botón */
+    right: 0;
+    background-color: rgba(248, 249, 250, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px black;
+    padding: 8px 0;
+    min-width: 200px;
+    z-index: 9999; /* para que esté por encima de todo */
 }
 
 .user-dropdown-menu .dropdown-item {
-  background-color: #f8f9fa;       /* Fondo suave */
-  color: #333;                     /* Color de texto */
-  border: 1px solid #dee2e6;       /* Borde sutil */
-  border-radius: 6px;              /* Esquinas redondeadas */
-  margin-bottom: 8px;              /* Espacio entre opciones */
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+    background-color: #f8f9fa; /* Fondo suave */
+    color: #333; /* Color de texto */
+    border: 1px solid #dee2e6; /* Borde sutil */
+    border-radius: 6px; /* Esquinas redondeadas */
+    margin-bottom: 4px; /* Espacio entre opciones */
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
 }
 .user-dropdown-menu .dropdown-item:hover {
-  background-color: #e0f0ff; /* O el color que prefieras */
-  color: #0b5ed7;
+    background-color: #e0f0ff; /* O el color que prefieras */
+    color: #0097b2;
+}
+
+.dropdown-item:focus {
+    color: #333 !important;
 }
 
 .dropdown-item:active {
     background-color: #57cdd9 !important;
+    color: white !important;
 }
+
 .user-dropdown {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 /* Botón de cerrar sesión */
 .logout-btn {
-  color: red;
+    color: red !important;
+}
+
+.logout-btn:hover {
+    background-color: #ffe0e0 !important; /* O el color que prefieras */
+}
+
+.logout-btn:active {
+    background-color: red !important;
+    color: white !important;
 }

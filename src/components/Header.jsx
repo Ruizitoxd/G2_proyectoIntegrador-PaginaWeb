@@ -30,7 +30,13 @@ export default function Header() {
                         setUserName(usuario.email);
                     }
                 })
-                .catch(() => setUserName(usuario.email))
+                .catch((error) => {
+                    console.error(
+                        'Error al leer el nombre desde Firestore:',
+                        error
+                    );
+                    setUserName(usuario.email);
+                })
                 .finally(() => setLoadingName(false));
         }
     }, [usuario]);
@@ -88,7 +94,10 @@ export default function Header() {
                         <div className="user-dropdown">
                             <button
                                 className="user-dropdown-btn"
+                                type="button"
+                                data-bs-toglle="dropdown"
                                 onClick={toggleDropdown}
+                                aria-expanded="false"
                             >
                                 {loadingName ? 'Cargando...' : userName}
                             </button>

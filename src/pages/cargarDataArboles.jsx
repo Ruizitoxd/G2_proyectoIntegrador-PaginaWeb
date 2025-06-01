@@ -1,4 +1,3 @@
-
 import UploadExcel from "../components/subirExcel";
 import { useState } from "react";
 import Tabla from "../components/Tabla";
@@ -6,15 +5,18 @@ import Tabla from "../components/Tabla";
 function CargarArboles() {
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
+  const [enviando, setEnviando] = useState(false);
+  const [mensaje, setMensaje] = useState("");
 
   const encabezadosEsperados = [
-    "id", "Tamaño", "condición", "azimut (°)", "distancia (m)", "# fustes",
-    "diámetro (cm)", "altura fuste (m)", "altura total (m)", "forma del fuste",
-    "Diámetro fuste (cm)", "Diámetro copa (m)", "id especie"
+    "nombrecomun", "condicion", "azimut", "distancia", "numero_fustes",
+    "diametro", "altura_fuste", "forma_fuste", "altura_total",
+    "diametro_fuste", "diametro_copa", "especie", "idsubparcela", "tamano"
   ];
 
   const handleData = (jsonData) => {
     setData(jsonData);
+    setMensaje("");
 
     // Generar columnas dinámicamente desde los encabezados del archivo
     if (jsonData.length > 0) {
@@ -27,17 +29,60 @@ function CargarArboles() {
     }
   };
 
+  const enviarDatos = async () => {
+    setEnviando(true);
+    setMensaje("");
+
+    try {
+      const response = await fetch("https://back-end-inventarionacional.onrender.com/api/arbol/agregar-arbol", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        setMensaje("🌳 Datos enviados correctamente.");
+        setData([]);
+        setColumns([]);
+      } else {
+        const errorData = await response.json();
+        setMensaje(`❌ Error al enviar: ${errorData.message || response.statusText}`);
+      }
+    } catch (error) {
+      setMensaje("❌ Error de red al enviar los datos.");
+    } finally {
+      setEnviando(false);
+    }
+  };
+
   return (
     <div style={{ padding: '20px' }}>
-        <h2>Subir datos de los arboles</h2>
-      <UploadExcel  buttonClass="boton-verde"  expectedHeaders={encabezadosEsperados} onData={handleData} />
-      
+      <h2>Subir datos de los árboles</h2>
+      <UploadExcel
+        buttonClass="boton-verde"
+        expectedHeaders={encabezadosEsperados}
+        onData={handleData}
+      />
+
       {data.length > 0 && columns.length > 0 && (
-        <Tabla columns={columns} data={data} />
+        <>
+          <Tabla columns={columns} data={data} />
+          <button
+            onClick={enviarDatos}
+            className="boton-verde"
+            disabled={enviando}
+            style={{ marginTop: '20px' }}
+          >
+            {enviando ? "Enviando..." : "Enviar Datos al Servidor"}
+          </button>
+        </>
       )}
+
+      {mensaje && <p style={{ marginTop: '10px', color: mensaje.startsWith("❌") ? "red" : "green" }}>{mensaje}</p>}
     </div>
   );
 }
 
 export default CargarArboles;
-

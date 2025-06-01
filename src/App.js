@@ -14,11 +14,9 @@ import TablaSuelos from './pages/TablaSuelos';
 import TablaColeccionBotanica from './pages/TablaColeccionBotanica';
 import ManualDeConsulta from './pages/ManualDeConsulta';
 import Login from './pages/Login';
-
 import DashboardApp from './pages/Dashboard';
 import HistorialPage from './pages/HistorialPage';
-
-// En tus rutas:
+import DashboardReportes from './pages/DashboardReportes';
 
 function AppContent() {
     const location = useLocation();
@@ -32,24 +30,14 @@ function AppContent() {
 
             <Routes>
                 <Route path="/" element={<Inicio />} />
-                <Route
-                    path="/MapaConglomerados"
-                    element={<MapaConglomerados />}
-                />
-                <Route path="/TablaArboles" element={<TablaArboles />} />
-                <Route path="/TablaSuelos" element={<TablaSuelos />} />
-                <Route
-                    path="/TablaColeccionBotanica"
-                    element={<TablaColeccionBotanica />}
-                />
-                <Route
-                    path="/ManualDeConsulta"
-                    element={<ManualDeConsulta />}
-                />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/Excel/*" element={<DashboardApp />} />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/manual" element={<ManualDeConsulta />} />
+                <Route path="/MapaConglomerados" element={<MapaConglomerados />} />
+                <Route path='/TablaArboles' element={<TablaArboles />} />
+                <Route path='/TablaSuelos' element={<TablaSuelos />} />
+                <Route path='/TablaColeccionBotanica' element={<TablaColeccionBotanica />} />
+                <Route path='/ManualDeConsulta' element={<ManualDeConsulta />} />
+                <Route path='/Login' element={<Login />} />
+                <Route path='/Excel/*' element={<DashboardApp />} />
+                <Route path='/Reporte/*' element={<DashboardReportes />} />
                 <Route path="/historial" element={<HistorialPage />} />
             </Routes>
 
