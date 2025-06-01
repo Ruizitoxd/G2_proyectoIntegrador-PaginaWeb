@@ -23,14 +23,11 @@ export default function GenerarReporteGeneral() {
     };
 
     const generarReporte = () => {
-        fetch(
-            'https://back-end-reportesintegrador.onrender.com/api/reporteGeneral/pdf/conglomerados',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ids: seleccionados }),
-            }
-        )
+        fetch('http://localhost:4000/api/reporteGeneral/pdf/conglomerados', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ids: seleccionados }),
+        })
             .then((res) => {
                 if (!res.ok)
                     throw new Error('Error al generar PDF version RES');
