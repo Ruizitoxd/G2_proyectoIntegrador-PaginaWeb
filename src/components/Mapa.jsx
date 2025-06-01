@@ -11,7 +11,6 @@ import { useConglomerados } from '../data/useConglomerados.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Mapa.css';
-import SliderFilter from './SliderFilter';
 import ChangeView from './ChangeView.jsx';
 
 export default function Mapa() {
@@ -31,11 +30,24 @@ export default function Mapa() {
         },
     };
 
+    const registrarEnHistorial = (evento) => {
+        const historial = JSON.parse(
+            sessionStorage.getItem('historial') || '[]'
+        );
+        const timestamp = new Date().toISOString();
+
+        if (
+            historial.length === 0 ||
+            historial[historial.length - 1].evento !== evento
+        ) {
+            historial.push({ evento, timestamp });
+            sessionStorage.setItem('historial', JSON.stringify(historial));
+        }
+    };
+
     const [selectedStyle, setSelectedStyle] = useState('OpenStreetMap');
-    // Agrega esto arriba
     const [region, setRegion] = useState('');
     const [posEstrato, setPosEstrato] = useState('');
-
     const conglomerados = useConglomerados(region, posEstrato);
 
     const colorRandom = () => {
@@ -66,12 +78,11 @@ export default function Mapa() {
             'plum',
             'dodgerblue',
         ];
-
         return colores[Math.floor(Math.random() * colores.length)];
     };
+
     return (
         <div className="map-container">
-            {/* Botón que abre el offcanvas de filtros */}
             <button
                 className="btn btn-primary"
                 type="button"
@@ -82,7 +93,6 @@ export default function Mapa() {
                 <FontAwesomeIcon icon={faSliders} size="2x" />
             </button>
 
-            {/* Sección del mapa principal */}
             <MapContainer
                 center={[7.111, -73.05]}
                 zoom={16}
@@ -100,18 +110,13 @@ export default function Mapa() {
                     }
                     zoom={16}
                 />
-                {/* Establece el estilo del mapa */}
                 <TileLayer
                     url={tileStyles[selectedStyle].url}
                     attribution={tileStyles[selectedStyle].attribution}
                 />
-
-                {/* Establece la ubicación de los controles de zoom */}
                 <ZoomControl position="bottomright" />
-
-                {/* Ciclo que coloca los circulos del mapa según la información de los conglomerados */}
                 {conglomerados.map((item) => {
-                    const color = colorRandom(); // Generar el color una vez
+                    const color = colorRandom();
                     return (
                         <Circle
                             key={item.id}
@@ -149,7 +154,6 @@ export default function Mapa() {
                 })}
             </MapContainer>
 
-            {/* Sección del offcanvas de filtros */}
             <div
                 className="offcanvas offcanvas-start"
                 data-bs-scroll="true"
@@ -173,9 +177,7 @@ export default function Mapa() {
                     ></button>
                 </div>
                 <div className="offcanvas-body">
-                    {/* Sección de filtros usables */}
                     <div className="map-filter-section">
-                        {/* Filtro de región */}
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <label
                                 htmlFor="selectRegion"
@@ -189,22 +191,26 @@ export default function Mapa() {
                                 className="form-select shadow-sm"
                                 style={{ maxWidth: '250px' }}
                                 value={region}
-                                onChange={(e) => setRegion(e.target.value)}
+                                onChange={(e) => {
+                                    setRegion(e.target.value);
+                                    registrarEnHistorial(
+                                        `Seleccionó región: ${e.target.value}`
+                                    );
+                                }}
                             >
                                 <option value="">Seleccionar región</option>
                                 <option value="Amazonas">Amazonas</option>
                                 <option value="Andina">Andina</option>
                                 <option value="Pacifica">Pacífica</option>
                                 <option value="Caribe">Caribe</option>
-                                <option value="Insular,">Insular</option>
+                                <option value="Insular">Insular</option>
                                 <option value="Orinoquia">Orinoquía</option>
                             </select>
                         </div>
 
-                        {/* Filtro de postestrato */}
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <label
-                                htmlFor="selectRegion"
+                                htmlFor="selectPosEstrato"
                                 className="form-label fw-bold mb-0 me-2"
                                 style={{ minWidth: '100px' }}
                             >
@@ -215,7 +221,12 @@ export default function Mapa() {
                                 className="form-select shadow-sm"
                                 style={{ maxWidth: '250px' }}
                                 value={posEstrato}
-                                onChange={(e) => setPosEstrato(e.target.value)}
+                                onChange={(e) => {
+                                    setPosEstrato(e.target.value);
+                                    registrarEnHistorial(
+                                        `Seleccionó post-estrato: ${e.target.value}`
+                                    );
+                                }}
                             >
                                 <option value="">
                                     Seleccionar post-estrato
@@ -224,22 +235,20 @@ export default function Mapa() {
                                 <option value="No Bosque">No Bosque</option>
                             </select>
                         </div>
-
-                        {/* Filtro de número de conglomerados */}
-                        <SliderFilter />
                     </div>
 
-                    {/* Lista de conglomerados activos en el mapa*/}
                     <div className="map-conglomerados-section"></div>
 
-                    {/* Selecto de cambio de estilo del mapa */}
                     <div className="map-select-section">
                         <div className="map-style-selector">
                             <div
                                 className="style-option"
-                                onClick={() =>
-                                    setSelectedStyle('OpenStreetMap')
-                                }
+                                onClick={() => {
+                                    setSelectedStyle('OpenStreetMap');
+                                    registrarEnHistorial(
+                                        'Cambió a estilo OpenStreetMap'
+                                    );
+                                }}
                             >
                                 <img
                                     src={require('../Images/map_style_default.png')}
@@ -248,7 +257,12 @@ export default function Mapa() {
                             </div>
                             <div
                                 className="style-option"
-                                onClick={() => setSelectedStyle('Carto Light')}
+                                onClick={() => {
+                                    setSelectedStyle('Carto Light');
+                                    registrarEnHistorial(
+                                        'Cambió a estilo Carto Light'
+                                    );
+                                }}
                             >
                                 <img
                                     src={require('../Images/map_style_light.png')}
@@ -257,7 +271,12 @@ export default function Mapa() {
                             </div>
                             <div
                                 className="style-option"
-                                onClick={() => setSelectedStyle('Carto Dark')}
+                                onClick={() => {
+                                    setSelectedStyle('Carto Dark');
+                                    registrarEnHistorial(
+                                        'Cambió a estilo Carto Dark'
+                                    );
+                                }}
                             >
                                 <img
                                     src={require('../Images/map_style_dark.png')}
