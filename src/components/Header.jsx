@@ -119,7 +119,7 @@ export default function Header() {
                                         className="dropdown-item"
                                         onClick={() =>
                                             handleNavigate(
-                                                '/informes',
+                                                '/Reporte/home',
                                                 'Entró a Informes'
                                             )
                                         }
