@@ -31,7 +31,10 @@ export default function Header() {
                     }
                 })
                 .catch((error) => {
-                    console.error('Error al leer el nombre desde Firestore:', error);
+                    console.error(
+                        'Error al leer el nombre desde Firestore:',
+                        error
+                    );
                     setUserName(usuario.email);
                 })
                 .finally(() => setLoadingName(false));
@@ -62,7 +65,10 @@ export default function Header() {
         <header className="navbar">
             <div className="container-fluid">
                 <div className="navbar-brand montserrat-title-font">
-                    <img src={require('../Images/Logo_Ideam.png')} alt="Logo_Ideam" />
+                    <img
+                        src={require('../Images/Logo_Ideam.png')}
+                        alt="Logo_Ideam"
+                    />
                     Instituto de Hidrología, Meteorología y Estudios Ambientales
                 </div>
 
@@ -77,7 +83,10 @@ export default function Header() {
                         <div className="user-dropdown">
                             <button
                                 className="user-dropdown-btn"
+                                type="button"
+                                data-bs-toglle="dropdown"
                                 onClick={toggleDropdown}
+                                aria-expanded="false"
                             >
                                 {loadingName ? 'Cargando...' : userName}
                             </button>
@@ -86,19 +95,25 @@ export default function Header() {
                                 <div className="user-dropdown-menu">
                                     <button
                                         className="dropdown-item"
-                                        onClick={() => handleNavigate('/Excel/home')}
+                                        onClick={() =>
+                                            handleNavigate('/Excel/home')
+                                        }
                                     >
                                         Cargar Datos
                                     </button>
                                     <button
                                         className="dropdown-item"
-                                        onClick={() => handleNavigate('/informes')}
+                                        onClick={() =>
+                                            handleNavigate('/Reporte/home')
+                                        }
                                     >
                                         Informes
                                     </button>
                                     <button
                                         className="dropdown-item"
-                                        onClick={() => handleNavigate('/historial')}
+                                        onClick={() =>
+                                            handleNavigate('/historial')
+                                        }
                                     >
                                         Historial
                                     </button>
