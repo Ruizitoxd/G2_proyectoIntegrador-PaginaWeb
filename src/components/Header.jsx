@@ -16,7 +16,7 @@ export default function Header() {
     const usuario = useContext(AuthContext);
     const [userName, setUserName] = useState('');
     const [loadingName, setLoadingName] = useState(true);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 👈 control del menú
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         if (usuario) {
@@ -46,19 +46,30 @@ export default function Header() {
     const handleLogout = async () => {
         try {
             await signOut(auth);
+            sessionStorage.clear();
             navigate('/');
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
         }
     };
 
-    const toggleDropdown = () => {
-        setIsDropdownOpen((prev) => !prev);
+    const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+
+    const registrarEvento = (mensaje) => {
+        const historial = JSON.parse(
+            sessionStorage.getItem('historial') || '[]'
+        );
+        historial.push({
+            evento: mensaje,
+            timestamp: new Date().toISOString(),
+        });
+        sessionStorage.setItem('historial', JSON.stringify(historial));
     };
 
-    const handleNavigate = (ruta) => {
+    const handleNavigate = (ruta, evento) => {
+        if (evento) registrarEvento(evento);
         navigate(ruta);
-        setIsDropdownOpen(false); // cerrar menú después de navegar
+        setIsDropdownOpen(false);
     };
 
     return (
@@ -96,7 +107,10 @@ export default function Header() {
                                     <button
                                         className="dropdown-item"
                                         onClick={() =>
-                                            handleNavigate('/Excel/home')
+                                            handleNavigate(
+                                                '/Excel/home',
+                                                'Entró a Cargar Datos'
+                                            )
                                         }
                                     >
                                         Cargar Datos
@@ -104,7 +118,10 @@ export default function Header() {
                                     <button
                                         className="dropdown-item"
                                         onClick={() =>
-                                            handleNavigate('/Reporte/home')
+                                            handleNavigate(
+                                                '/Reporte/home',
+                                                'Entró a Informes'
+                                            )
                                         }
                                     >
                                         Informes
@@ -112,11 +129,15 @@ export default function Header() {
                                     <button
                                         className="dropdown-item"
                                         onClick={() =>
-                                            handleNavigate('/historial')
+                                            handleNavigate(
+                                                '/historial',
+                                                'Entró al Historial'
+                                            )
                                         }
                                     >
                                         Historial
                                     </button>
+
                                     <hr />
                                     <button
                                         className="dropdown-item logout-btn"

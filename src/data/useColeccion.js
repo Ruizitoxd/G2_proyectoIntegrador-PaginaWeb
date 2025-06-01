@@ -4,15 +4,47 @@ import { useFetch } from '../data/useFetch';
 export function useColeccion(conglomeradoId, subparcela) {
     const [url, setUrl] = useState('');
 
+    const registrarEnHistorial = (evento) => {
+        const historial = JSON.parse(
+            sessionStorage.getItem('historial') || '[]'
+        );
+        const timestamp = new Date().toISOString();
+
+        if (
+            historial.length === 0 ||
+            historial[historial.length - 1].evento !== evento
+        ) {
+            historial.push({ evento, timestamp });
+            sessionStorage.setItem('historial', JSON.stringify(historial));
+        }
+    };
+
+    // Registrar entrada a la página una sola vez
     useEffect(() => {
-        const base = 'https://back-end-inventarionacional.onrender.com/api/ColeccionBotanica';
+        registrarEnHistorial('Entró a Colección Botánica');
+    }, []);
+
+    useEffect(() => {
+        const base =
+            'https://back-end-inventarionacional.onrender.com/api/ColeccionBotanica';
 
         if (conglomeradoId && subparcela && subparcela !== 'Todas') {
-            setUrl(`${base}/obtener-subParcela-ColeccionBotanico/${conglomeradoId}/${subparcela}`);
+            setUrl(
+                `${base}/obtener-subParcela-ColeccionBotanico/${conglomeradoId}/${subparcela}`
+            );
         } else if (conglomeradoId) {
             setUrl(`${base}/obtener-ColeccionBotanico/${conglomeradoId}`);
         } else {
             setUrl(`${base}/obtener-todos-ColeccionBotanico`);
+        }
+
+        // Registrar filtros por separado
+        if (conglomeradoId) {
+            registrarEnHistorial(`Filtró por Conglomerado ${conglomeradoId}`);
+        }
+
+        if (subparcela && subparcela !== 'Todas') {
+            registrarEnHistorial(`Filtró por Subparcela ${subparcela}`);
         }
     }, [conglomeradoId, subparcela]);
 
