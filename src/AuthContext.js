@@ -1,26 +1,25 @@
-import { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import appFirebase from './credenciales';
 
-export const AuthContext = createContext(null); // contexto vacío por defecto
+export const AuthContext = createContext();
 
 const auth = getAuth(appFirebase);
 
-export function AuthProvider({ children }) {
-    const [usuario, setUsuario] = useState(null);
+export const AuthProvider = ({ children }) => {
+  const [usuario, setUsuario] = useState(null);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setUsuario(user);
-        });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (usuarioFirebase) => {
+      setUsuario(usuarioFirebase);
+    });
 
-        // limpieza al desmontar el componente
-        return () => unsubscribe();
-    }, []);
+    return () => unsubscribe();
+  }, []);
 
-    return (
-        <AuthContext.Provider value={usuario}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+  return (
+    <AuthContext.Provider value={usuario}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

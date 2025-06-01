@@ -16,7 +16,7 @@ export default function Header() {
     const usuario = useContext(AuthContext);
     const [userName, setUserName] = useState('');
     const [loadingName, setLoadingName] = useState(true);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 👈 control del menú
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         if (usuario) {
@@ -30,10 +30,7 @@ export default function Header() {
                         setUserName(usuario.email);
                     }
                 })
-                .catch((error) => {
-                    console.error('Error al leer el nombre desde Firestore:', error);
-                    setUserName(usuario.email);
-                })
+                .catch(() => setUserName(usuario.email))
                 .finally(() => setLoadingName(false));
         }
     }, [usuario]);
@@ -43,26 +40,40 @@ export default function Header() {
     const handleLogout = async () => {
         try {
             await signOut(auth);
+            sessionStorage.clear();
             navigate('/');
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
         }
     };
 
-    const toggleDropdown = () => {
-        setIsDropdownOpen((prev) => !prev);
+    const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+
+    const registrarEvento = (mensaje) => {
+        const historial = JSON.parse(
+            sessionStorage.getItem('historial') || '[]'
+        );
+        historial.push({
+            evento: mensaje,
+            timestamp: new Date().toISOString(),
+        });
+        sessionStorage.setItem('historial', JSON.stringify(historial));
     };
 
-    const handleNavigate = (ruta) => {
+    const handleNavigate = (ruta, evento) => {
+        if (evento) registrarEvento(evento);
         navigate(ruta);
-        setIsDropdownOpen(false); // cerrar menú después de navegar
+        setIsDropdownOpen(false);
     };
 
     return (
         <header className="navbar">
             <div className="container-fluid">
                 <div className="navbar-brand montserrat-title-font">
-                    <img src={require('../Images/Logo_Ideam.png')} alt="Logo_Ideam" />
+                    <img
+                        src={require('../Images/Logo_Ideam.png')}
+                        alt="Logo_Ideam"
+                    />
                     Instituto de Hidrología, Meteorología y Estudios Ambientales
                 </div>
 
@@ -86,22 +97,38 @@ export default function Header() {
                                 <div className="user-dropdown-menu">
                                     <button
                                         className="dropdown-item"
-                                        onClick={() => handleNavigate('/Excel/home')}
+                                        onClick={() =>
+                                            handleNavigate(
+                                                '/Excel/home',
+                                                'Entró a Cargar Datos'
+                                            )
+                                        }
                                     >
                                         Cargar Datos
                                     </button>
                                     <button
                                         className="dropdown-item"
-                                        onClick={() => handleNavigate('/informes')}
+                                        onClick={() =>
+                                            handleNavigate(
+                                                '/informes',
+                                                'Entró a Informes'
+                                            )
+                                        }
                                     >
                                         Informes
                                     </button>
                                     <button
                                         className="dropdown-item"
-                                        onClick={() => handleNavigate('/historial')}
+                                        onClick={() =>
+                                            handleNavigate(
+                                                '/historial',
+                                                'Entró al Historial'
+                                            )
+                                        }
                                     >
                                         Historial
                                     </button>
+
                                     <hr />
                                     <button
                                         className="dropdown-item logout-btn"
